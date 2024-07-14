@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div style="margin-top:5px" class="col-lg-6">
+        @await Html.PartialAsync("BlogPartial")
+    </div>
+    <div style="margin-top:5px" class="col-lg-6">
+        @await Html.PartialAsync("UserPartial")
+    </div>
+</div>

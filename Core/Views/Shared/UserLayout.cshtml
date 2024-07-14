@@ -1,0 +1,85 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+	<title>PureBlog</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta name="keywords" content="" />
+	<link href="~/coredemotheme/css/bootstrap.css" rel='stylesheet' type='text/css' />
+	<link rel="stylesheet" href="~/coredemotheme/css/single.css">
+	<link href="~/coredemotheme/css/style.css" rel='stylesheet' type='text/css' />
+	<link href="~/coredemotheme/css/fontawesome-all.css" rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800"
+		  rel="stylesheet">
+	<link href="~/coredemotheme/css/contact.css" rel='stylesheet' type='text/css' />
+	<link href="~/slider/css/bootstrap-icons.css" rel="stylesheet">
+	<link href="~/slider/css/custom.css" rel="stylesheet">
+    <link rel="shortcut icon" href="~/writer/assets/images/white.png" />
+</head>
+<body>
+	<header>
+		<div class="top-bar_sub_w3layouts container-fluid">
+			<div class="row">
+				<div class="col-md-4 logo text-left">
+					<a class="navbar-brand" href="/Home/Index/">
+						<img src="~/coredemotheme/images/logo.png" alt="logo" style="height: auto; max-height: 40px; vertical-align: middle; margin-right: 10px;">
+					</a>
+				</div>
+			@await Component.InvokeAsync("TopBarInfo")
+			</div>
+		</div>
+	@await Html.PartialAsync("TopSectionPartial")
+	</header>
+@RenderBody()
+	@await Html.PartialAsync("FooterPartial")
+	<script src="~/coredemotheme/js/jquery-2.2.3.min.js"></script>
+	<script src="~/coredemotheme/js/move-top.js"></script>
+	<script src="~/coredemotheme/js/easing.js"></script>
+	<script src="~/coredemotheme/js/bootstrap.js"></script>
+	<script src="~/coredemotheme/js/jquery.flexisel.js"></script>
+	<script>
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+				$('html,body').animate({
+					scrollTop: $(this.hash).offset().top
+				}, 900);
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function () {
+
+			var defaults = {
+				containerID: 'toTop',
+				containerHoverID: 'toTopHover',
+				scrollSpeed: 1200,
+				easingType: 'linear'
+			};
+
+			$().UItoTop({
+				easingType: 'easeOutQuart'
+			});
+
+		});
+	</script>
+	<script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<a href="#home" class="scroll" id="toTop" style="display: block;">
+		<span id="toTopHover" style="opacity: 1;"> </span>
+	</a>
+</body>
+</html>

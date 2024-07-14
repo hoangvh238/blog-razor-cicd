@@ -1,0 +1,94 @@
+﻿<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4 footer-grid-agileits-w3ls text-left">
+				<h3>Hakkımızda</h3>
+				<p>Blog, teknik bilgi gerektirmeden, kendi istedikleri şeyleri, kendi istedikleri şekilde yazan insanların oluşturabildikleri, günlüğe benzeyen web siteleridir. Genellikle güncelden eskiye doğru sıralanmış yazı ve yorumların yayınlandığı, web tabanlı bir yayını belirtir. Çoğunlukla her gönderinin sonunda yazarın adı ve gönderi zamanı belirtilir. Yayıncının seçimine göre okuyucular yazılara yorum yapılabilir... </p>
+				<div class="read">
+					<a href="/About/Index/" class="btn btn-primary read-m">Devamını Oku</a>
+				</div>
+			</div>
+			<div class="col-lg-4 footer-grid-agileits-w3ls text-left">
+				<div class="tech-btm">
+					<h3>Son Gönderiler</h3>
+					@await Component.InvokeAsync("LastBlogs")
+				</div>
+			</div>
+			<div class="col-lg-4 footer-grid-agileits-w3ls text-left">
+					<div class="tech-btm">
+						<h3>Mail Bültenine Abone Ol</h3>
+						<img src="~/coredemotheme/images/banner1.jpg" class="img-fluid" alt="">
+					</div>
+				<div class="tech-btm">
+					<p>Bloglar size mail ile yollanacaktır. </p>
+					<form id="newsfooter" method="post">
+						<input type="email" placeholder="Email" required="" name="Mail">
+						<input type="submit" value="ABONE OL">
+					</form>
+					<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+					<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+					<script>
+						$(document).on('submit', '#newsfooter', function (e) {
+							e.preventDefault();
+
+							var formData = $(this).serialize();
+
+							$.ajax({
+								url: '/NewsLetter/SubscribeMail',
+								type: 'POST',
+								data: formData,
+								success: function (response) {
+									$("input[name='Mail']").val('');
+
+									Swal.fire({
+										title: 'Başarılı',
+										icon: 'success',
+										confirmButtonText: 'Tamam'
+									});
+								},
+								error: function (error) {
+									Swal.fire({
+										title: 'Hata',
+										icon: 'error',
+										confirmButtonText: 'Tamam'
+									});
+								}
+							});
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+		<div class="footer-cpy text-center">
+			<div class="footer-social">
+				<div class="copyrighttop">
+					<ul>
+						<li class="mx-6">
+							<a class="facebook" href="https://www.facebook.com">
+								<i class="fab fa-facebook-f"></i>
+								<span>Facebook</span>
+							</a>
+						</li>
+						<li style="margin: 0 10px;">
+							<a class="facebook" href="https://www.x.com">
+								<i class="fab fa-twitter"></i>
+								<span>Twitter</span>
+							</a>
+						</li>
+						<li>
+							<a class="facebook" href="https://www.pinterest.com">
+								<i class="fab fa-pinterest-p"></i>
+								<span>Pinterest</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="w3layouts-agile-copyrightbottom">
+				<p>
+					© @DateTime.Now.Year PureBlog Web Sayfası. Tüm Hakları Saklıdır.
+				</p>
+			</div>
+		</div>
+	</div>
+</footer>
