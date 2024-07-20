@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
+using Core.Hubs;
 using Core.Models;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,10 +24,11 @@ namespace CoreDemo.Controllers
         private readonly CategoryManager _categoryManager = new(new EfCategoryRepository());
         private readonly WriterManager _writerManager = new(new EfWriterRepository());
         private readonly UserManager<User> _userManager;
-
-        public BlogController(UserManager<User> userManager)
+        private readonly IHubContext<PostHub> _hubContext;
+        public BlogController(UserManager<User> userManager, IHubContext<PostHub> hubContext)
         {
             _userManager = userManager;
+		    _hubContext = hubContext;
         }
 
         [AllowAnonymous]
@@ -101,7 +104,6 @@ namespace CoreDemo.Controllers
                 CategoryID = model.CategoryID,
                 WriterID = writer.WriterID,
             };
-
             BlogValidator blogValidator = new();
             ValidationResult result = blogValidator.Validate(blog);
 
@@ -121,7 +123,13 @@ namespace CoreDemo.Controllers
 
                 _blogManager.AddEntity(blog);
 
-                return RedirectToAction("BlogListByWriter", "Blog");
+                blog.Category = new Category
+                {
+                    CategoryName = _categoryManager.GetEntityById(model.CategoryID).CategoryName
+                };
+				await _hubContext.Clients.All.SendAsync("BlogDataReceived", blog);
+
+				return RedirectToAction("BlogListByWriter", "Blog");
             }
             else
             {
@@ -132,6 +140,7 @@ namespace CoreDemo.Controllers
                     ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
                 }
             }
+			 
 
             return View();
         }

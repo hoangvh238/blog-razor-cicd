@@ -9,7 +9,7 @@ using System.IO;
 namespace Core.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class ExcelController : Controller
     {
         private readonly BlogManager _blogManager = new (new EfBlogRepository());
