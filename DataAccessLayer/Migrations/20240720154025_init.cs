@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using MySql.EntityFrameworkCore.Metadata;
 
 namespace DataAccessLayer.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,13 +13,13 @@ namespace DataAccessLayer.Migrations
                 columns: table => new
                 {
                     AboutID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AboutDetailsFirst = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AboutDetailsSecond = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AboutImageFirst = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AboutImageSecond = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AboutMapLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AboutStatus = table.Column<bool>(type: "bit", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    AboutDetailsFirst = table.Column<string>(type: "text", nullable: true),
+                    AboutDetailsSecond = table.Column<string>(type: "text", nullable: true),
+                    AboutImageFirst = table.Column<string>(type: "text", nullable: true),
+                    AboutImageSecond = table.Column<string>(type: "text", nullable: true),
+                    AboutMapLocation = table.Column<string>(type: "text", nullable: true),
+                    AboutStatus = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,10 +31,10 @@ namespace DataAccessLayer.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -45,23 +46,23 @@ namespace DataAccessLayer.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NameSurname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    NameSurname = table.Column<string>(type: "text", nullable: true),
+                    Image = table.Column<string>(type: "text", nullable: true),
+                    IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     AccessFailedCount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -74,7 +75,7 @@ namespace DataAccessLayer.Migrations
                 columns: table => new
                 {
                     BlogRatingID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     BlogID = table.Column<int>(type: "int", nullable: false),
                     BlogTotalRating = table.Column<int>(type: "int", nullable: false),
                     BlogRatingCount = table.Column<int>(type: "int", nullable: false)
@@ -89,10 +90,10 @@ namespace DataAccessLayer.Migrations
                 columns: table => new
                 {
                     CategoryID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CategoryDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CategoryStatus = table.Column<bool>(type: "bit", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    CategoryName = table.Column<string>(type: "text", nullable: true),
+                    CategoryDescription = table.Column<string>(type: "text", nullable: true),
+                    CategoryStatus = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -104,13 +105,13 @@ namespace DataAccessLayer.Migrations
                 columns: table => new
                 {
                     ContactID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ContactUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ContactMail = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ContactSubject = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ContactMessage = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ContactCreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ContactStatus = table.Column<bool>(type: "bit", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    ContactUserName = table.Column<string>(type: "text", nullable: true),
+                    ContactMail = table.Column<string>(type: "text", nullable: true),
+                    ContactSubject = table.Column<string>(type: "text", nullable: true),
+                    ContactMessage = table.Column<string>(type: "text", nullable: true),
+                    ContactCreatedAt = table.Column<DateTime>(type: "datetime", nullable: false),
+                    ContactStatus = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -122,9 +123,9 @@ namespace DataAccessLayer.Migrations
                 columns: table => new
                 {
                     MailID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Mail = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MailStatus = table.Column<bool>(type: "bit", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Mail = table.Column<string>(type: "text", nullable: true),
+                    MailStatus = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -136,13 +137,13 @@ namespace DataAccessLayer.Migrations
                 columns: table => new
                 {
                     NotificationID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NotificationType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NotificationTypeIcon = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NotificationDetails = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NotificationStatus = table.Column<bool>(type: "bit", nullable: false),
-                    NotificationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    NotificationColor = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    NotificationType = table.Column<string>(type: "text", nullable: true),
+                    NotificationTypeIcon = table.Column<string>(type: "text", nullable: true),
+                    NotificationDetails = table.Column<string>(type: "text", nullable: true),
+                    NotificationStatus = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    NotificationDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    NotificationColor = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -154,9 +155,9 @@ namespace DataAccessLayer.Migrations
                 columns: table => new
                 {
                     VisitorId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    VisitorIp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    VisitorIp = table.Column<string>(type: "text", nullable: true),
+                    TimeStamp = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -168,10 +169,10 @@ namespace DataAccessLayer.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     RoleId = table.Column<int>(type: "int", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ClaimType = table.Column<string>(type: "text", nullable: true),
+                    ClaimValue = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -189,10 +190,10 @@ namespace DataAccessLayer.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ClaimType = table.Column<string>(type: "text", nullable: true),
+                    ClaimValue = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -209,9 +210,9 @@ namespace DataAccessLayer.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LoginProvider = table.Column<string>(type: "varchar(128)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "varchar(128)", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "text", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -254,9 +255,9 @@ namespace DataAccessLayer.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    LoginProvider = table.Column<string>(type: "varchar(128)", nullable: false),
+                    Name = table.Column<string>(type: "varchar(128)", nullable: false),
+                    Value = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -274,13 +275,13 @@ namespace DataAccessLayer.Migrations
                 columns: table => new
                 {
                     WriterID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    WriterUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WriterNameSurname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WriterAbout = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WriterImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WriterMail = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WriterStatus = table.Column<bool>(type: "bit", nullable: false),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    WriterUserName = table.Column<string>(type: "text", nullable: true),
+                    WriterNameSurname = table.Column<string>(type: "text", nullable: true),
+                    WriterAbout = table.Column<string>(type: "text", nullable: true),
+                    WriterImage = table.Column<string>(type: "text", nullable: true),
+                    WriterMail = table.Column<string>(type: "text", nullable: true),
+                    WriterStatus = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     UserID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -299,12 +300,12 @@ namespace DataAccessLayer.Migrations
                 columns: table => new
                 {
                     BlogID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    BlogTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BlogContent = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BlogImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BlogCreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BlogStatus = table.Column<bool>(type: "bit", nullable: false),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    BlogTitle = table.Column<string>(type: "text", nullable: true),
+                    BlogContent = table.Column<string>(type: "text", nullable: true),
+                    BlogImage = table.Column<string>(type: "text", nullable: true),
+                    BlogCreatedAt = table.Column<DateTime>(type: "datetime", nullable: false),
+                    BlogStatus = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CategoryID = table.Column<int>(type: "int", nullable: false),
                     WriterID = table.Column<int>(type: "int", nullable: false)
                 },
@@ -330,13 +331,13 @@ namespace DataAccessLayer.Migrations
                 columns: table => new
                 {
                     MessageID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     SenderID = table.Column<int>(type: "int", nullable: true),
                     ReceiverID = table.Column<int>(type: "int", nullable: true),
-                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MessageDetails = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MessageDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    MessageStatus = table.Column<bool>(type: "bit", nullable: false)
+                    Subject = table.Column<string>(type: "text", nullable: true),
+                    MessageDetails = table.Column<string>(type: "text", nullable: true),
+                    MessageDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    MessageStatus = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -360,15 +361,15 @@ namespace DataAccessLayer.Migrations
                 columns: table => new
                 {
                     CommentID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CommentUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CommentTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CommentContent = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CommentCreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CommentStatus = table.Column<bool>(type: "bit", nullable: false),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    CommentUserName = table.Column<string>(type: "text", nullable: true),
+                    CommentTitle = table.Column<string>(type: "text", nullable: true),
+                    CommentContent = table.Column<string>(type: "text", nullable: true),
+                    CommentCreatedAt = table.Column<DateTime>(type: "datetime", nullable: false),
+                    CommentStatus = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     BlogRating = table.Column<int>(type: "int", nullable: false),
                     BlogID = table.Column<int>(type: "int", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Image = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -390,8 +391,7 @@ namespace DataAccessLayer.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -417,8 +417,7 @@ namespace DataAccessLayer.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Blogs_CategoryID",
