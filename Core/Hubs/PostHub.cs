@@ -19,38 +19,6 @@ namespace Core.Hubs
 		{
 			_userManager = userManager;
 		}
-
-		public override async Task OnConnectedAsync()
-		{
-			await Clients.All.SendAsync("UserStatusChanged", $"{Context.ConnectionId}" + "StateChangedLoadLatestChatList");
-		}
-
-		public async Task SendBlogData(Dictionary<string, string> formData)
-		{
-			//var user = await _userManager.FindByNameAsync(Context.User.Identity.Name);
-			//string userId = await _userManager.GetUserIdAsync(user);
-
-			//var model = new BlogAddViewModel
-			//{
-			//	BlogTitle = formData["BlogTitle"],
-			//	BlogContent = formData["BlogContent"],
-			//	CategoryID = int.Parse(formData["CategoryID"]),
-			//	BlogImage = new FormFile(
-			//		new MemoryStream(Convert.FromBase64String(formData["BlogImage"])),
-			//		0,
-			//		Convert.FromBase64String(formData["BlogImage"]).Length,
-			//		"BlogImage",
-			//		formData["BlogImageName"]
-			//	)
-			//};
-
-			//var result = blogExtensionService.AddBlogAsync(model, userId);
-
-			//await Clients.All.SendAsync("BlogDataReceived", result);
-
-			await Clients.All.SendAsync("BlogDataReceived", "oke");
-		}
-
 	
 	}
 }

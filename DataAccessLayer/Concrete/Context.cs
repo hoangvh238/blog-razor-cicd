@@ -9,7 +9,7 @@ namespace DataAccessLayer.Concrete
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseSqlServer("server=77.245.159.27\\MSSQLSERVER2019; database=CoreBlogDb; user=coreblogdb; password=HV8plhmA&z?9d6za");
-            optionsBuilder.UseSqlServer("Server=(local);Database=BLOG;Uid=sa;Pwd=1;TrustServerCertificate=True;Encrypt=false");
+            optionsBuilder.UseMySQL("Server=daily-dev-hoangvh230823-7d81.i.aivencloud.com;Port=21159;Database=dailydev;Uid=avnadmin;Pwd=AVNS_Mc1eYyxgr4e8E-pu3MG;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
