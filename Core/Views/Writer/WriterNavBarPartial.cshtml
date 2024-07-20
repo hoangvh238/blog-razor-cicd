@@ -1,0 +1,47 @@
+﻿<nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+        @await Component.InvokeAsync("WriterPicture")
+        <li class="nav-item">
+            <a class="nav-link" href="/Dashboard/Index/">
+                <span class="menu-title">Bảng tác giả</span>
+                <i class="mdi mdi-home menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/Writer/WriterEditProfile/">
+                <span class="menu-title">Thông tin của tôi</span>
+                <i class="mdi mdi-contacts menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/Blog/BlogListByWriter/">
+                <span class="menu-title">Blog của tôi</span>
+                <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/Blog/BlogAdd/">
+                <span class="menu-title">Blog mới</span>
+                <i class="mdi mdi-chart-bar menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/Message/Inbox/">
+                <span class="menu-title">Tin nhắn</span>
+                <i class="mdi mdi-message menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/Home/Index/">
+                <span class="menu-title">Quay lại trang web</span>
+                <i class="mdi mdi-arrow-right menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/Login/LogOut/">
+                <span class="menu-title">Đăng xuất</span>
+                <i class="mdi mdi-logout-variant menu-icon"></i>
+            </a>
+        </li>
+    </ul>
+</nav>

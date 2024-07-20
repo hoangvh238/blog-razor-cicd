@@ -1,0 +1,100 @@
+﻿@using EntityLayer.Concrete
+@model List<Message>
+
+@{
+    ViewData["Title"] = "Inbox";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+<style>
+    @@media (max-width: 450px) {
+    .ml-auto {
+        margin-left: 0 !important;
+    }
+}
+</style>
+<div class="row">
+    <h1>Hộp thư đến</h1>
+    <button onclick="window.location.href='/Message/SendBox/'" class="btn btn-outline-danger btn-fw ml-auto">Hộp thư đi</button>
+</div>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th><h5>ID</h5></th>
+                <th><h5>Đề tài</h5></th>
+                <th><h5>Nội dung tin nhắn</h5></th>
+                <th><h5>Ngày gửi</h5></th>
+                <th><h5>Tên người gửi</h5></th>
+                <th><h5>Email người gửi</h5></th>
+                <th><h5></h5></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><h4>@item.MessageID</h4></td>
+                    <td>@item.Subject</td>
+                    <td>@item.MessageDetails</td>
+                    <td>@item.MessageDate</td>
+                    <td>@{ if (item.SenderUser.WriterID == item.ReceiverUser.WriterID)
+                            {
+                                <span>@item.SenderUser.WriterNameSurname (Ben)</span>
+                            }
+                            else
+                            {
+                                <span>@item.SenderUser.WriterNameSurname</span>
+                            } }
+                    </td>
+                    <td>@item.SenderUser.WriterMail</td>
+                    <td>
+                        <button class="btn btn-danger" style="width:60px; padding: 8px 10px; font-size: 14px; text-align: center;"
+                                onclick="confirmDelete('@item.MessageID')">
+                            Sil
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<br />
+<div class="d-flex justify-content-center">
+    <a href="/Message/SendMessage/" class="btn btn-inverse-primary">Gửi tin nhắn mới</a>
+</div>
+
+<script>
+    function confirmDelete(messageId) {
+        Swal.fire({
+            title: 'Sil?',
+            text: 'Mesajı silmek istediğinize emin misiniz?',
+            showDenyButton: true,
+            confirmButtonText: 'Evet',
+            denyButtonText: 'Hayır',
+            customClass: {
+                actions: 'my-actions',
+                cancelButton: 'order-1 right-gap',
+                confirmButton: 'order-2',
+                denyButton: 'order-3',
+            },
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '/Message/DeleteMessage/' + messageId;
+            }
+        })
+    }
+</script>
+<style>
+    .table thead th {
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .table tbody tr:first-child {
+        border-top: none;
+    }
+
+    .table tbody tr:last-child {
+        border-bottom: 1px solid #dee2e6;
+    }
+</style>
+
