@@ -25,8 +25,7 @@ RUN dotnet build "Core.csproj" -c Release -o /app/build
 FROM build AS publish
 RUN dotnet publish "Core.csproj" -c Release -o /app/publish
 
-# Create the final image
-FROM base AS final
+# Create the final imageFROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Core.dll"]
