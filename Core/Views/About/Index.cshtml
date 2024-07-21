@@ -25,7 +25,7 @@
                         <p>@item.AboutDetailsFirst</p>
 
                     }
-                    <a href="/Blog/Index/" class="btn btn-primary read-m">Bloglar</a>
+                    <a href="/Blog/Index/" class="btn btn-primary read-m">Blog</a>
                 </div>
 
             </div>
@@ -34,12 +34,12 @@
                     <div class="tech-btm">
                         <img src="~/coredemotheme/images/banner1.jpg" class="img-fluid" alt="">
                     </div>
-                    <h4>Mail Bültenine Abone Ol</h4>
+                    <h4>Đăng ký bài viết mới qua email</h4>
                     <div class="tech-btm">
                         <p>Blog sẽ được gửi cho bạn qua e-mail. </p>
                         <form id="newsabout" method="post">
                             <input type="email" placeholder="Email" required="" name="Mail">
-                            <input type="submit" value="ABONE OL">
+                            <input type="submit" value="Đăng ký">
                         </form>
                         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -57,16 +57,16 @@
                                         $("input[name='Mail']").val('');
 
                                         Swal.fire({
-                                            title: 'Başarılı',
+                                            title: 'Thành công',
                                             icon: 'success',
-                                            confirmButtonText: 'Tamam'
+                                            confirmButtonText: 'Tiếp tục'
                                         });
                                     },
                                     error: function (error) {
                                         Swal.fire({
-                                            title: 'Hata',
+                                            title: 'Thất bại',
                                             icon: 'error',
-                                            confirmButtonText: 'Tamam'
+                                            confirmButtonText: 'Tiếp tục'
                                         });
                                     }
                                 });
