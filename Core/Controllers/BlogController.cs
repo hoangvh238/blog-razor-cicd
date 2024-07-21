@@ -16,172 +16,172 @@ using System.Threading.Tasks;
 
 namespace CoreDemo.Controllers
 {
-    public class BlogController : Controller
-    {
-        private readonly BlogManager _blogManager = new(new EfBlogRepository());
-        private readonly CategoryManager _categoryManager = new(new EfCategoryRepository());
-        private readonly WriterManager _writerManager = new(new EfWriterRepository());
-        private readonly UserManager<User> _userManager;
+	public class BlogController : Controller
+	{
+		private readonly BlogManager _blogManager = new(new EfBlogRepository());
+		private readonly CategoryManager _categoryManager = new(new EfCategoryRepository());
+		private readonly WriterManager _writerManager = new(new EfWriterRepository());
+		private readonly UserManager<User> _userManager;
 
-        public BlogController(UserManager<User> userManager)
-        {
-            _userManager = userManager;
-        }
+		public BlogController(UserManager<User> userManager)
+		{
+			_userManager = userManager;
+		}
 
-        [AllowAnonymous]
-        public IActionResult Index()
-        {
-            var values = _blogManager.GetBlogListWithCategory(null);
-            return View(values);
-        }
+		[AllowAnonymous]
+		public IActionResult Index()
+		{
+			var values = _blogManager.GetBlogListWithCategory(null);
+			return View(values);
+		}
 
-        [AllowAnonymous]
-        public IActionResult BlogReadAll(int id)
-        {
-            ViewBag.i = id;
+		[AllowAnonymous]
+		public IActionResult BlogReadAll(int id)
+		{
+			ViewBag.i = id;
 
-            var value = _blogManager.GetBlogWithCommentCount(id);
+			var value = _blogManager.GetBlogWithCommentCount(id);
 
-            if (value == null || !value.BlogStatus)
-            {
-                return RedirectToAction("Error", "Home");
-            }
+			if (value == null || !value.BlogStatus)
+			{
+				return RedirectToAction("Error", "Home");
+			}
 
-            return View(value);
-        }
+			return View(value);
+		}
 
-        public async Task<IActionResult> BlogListByWriter()
-        {
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            string userId = await _userManager.GetUserIdAsync(user);
-            var writer = _writerManager.GetWriterBySession(userId);
+		public async Task<IActionResult> BlogListByWriter()
+		{
+			var user = await _userManager.FindByNameAsync(User.Identity.Name);
+			string userId = await _userManager.GetUserIdAsync(user);
+			var writer = _writerManager.GetWriterBySession(userId);
 
-            var values = _blogManager.GetBlogListByWriter(writer.WriterID, true);
+			var values = _blogManager.GetBlogListByWriter(writer.WriterID, true);
 
-            return View(values);
-        }
+			return View(values);
+		}
 
-        [HttpGet]
-        public IActionResult BlogAdd()
-        {
-            PopulateCategoriesDropdown();
-            return View();
-        }
+		[HttpGet]
+		public IActionResult BlogAdd()
+		{
+			PopulateCategoriesDropdown();
+			return View();
+		}
 
-        [HttpPost]
-        public async Task<IActionResult> BlogAdd(BlogAddViewModel model)
-        {
-            bool isJpg = string.Equals(model.BlogImage?.ContentType, "image/jpg", StringComparison.OrdinalIgnoreCase);
-            bool isJpeg = string.Equals(model.BlogImage?.ContentType, "image/jpeg", StringComparison.OrdinalIgnoreCase);
-            bool isPng = string.Equals(model.BlogImage?.ContentType, "image/png", StringComparison.OrdinalIgnoreCase);
+		[HttpPost]
+		public async Task<IActionResult> BlogAdd(BlogAddViewModel model)
+		{
+			bool isJpg = string.Equals(model.BlogImage?.ContentType, "image/jpg", StringComparison.OrdinalIgnoreCase);
+			bool isJpeg = string.Equals(model.BlogImage?.ContentType, "image/jpeg", StringComparison.OrdinalIgnoreCase);
+			bool isPng = string.Equals(model.BlogImage?.ContentType, "image/png", StringComparison.OrdinalIgnoreCase);
 
-            if (model.BlogImage == null)
-            {
-                ModelState.AddModelError("BlogImage", "Lütfen bir profil resmi yükleyiniz.");
-            }
-            else if (!isJpg && !isJpeg && !isPng)
-            {
-                ModelState.AddModelError("BlogImage", "Lütfen geçerli bir profil resmi yükleyiniz.");
-            }
+			if (model.BlogImage == null)
+			{
+				ModelState.AddModelError("BlogImage", "Vui lòng tải lên một ảnh đại diện.");
+			}
+			else if (!isJpg && !isJpeg && !isPng)
+			{
+				ModelState.AddModelError("BlogImage", "Vui lòng tải lên một ảnh đại diện hợp lệ.");
+			}
 
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            string userId = await _userManager.GetUserIdAsync(user);
-            var writer = _writerManager.GetWriterBySession(userId);
+			var user = await _userManager.FindByNameAsync(User.Identity.Name);
+			string userId = await _userManager.GetUserIdAsync(user);
+			var writer = _writerManager.GetWriterBySession(userId);
 
-            var extension = Path.GetExtension(model.BlogImage?.FileName);
-            var newImageName = Guid.NewGuid() + extension;
+			var extension = Path.GetExtension(model.BlogImage?.FileName);
+			var newImageName = Guid.NewGuid() + extension;
 
-            Blog blog = new()
-            {
-                BlogTitle = model.BlogTitle,
-                BlogContent = model.BlogContent,
-                BlogStatus = true,
-                BlogCreatedAt = DateTime.Now,
-                BlogImage = "/WriterBlogFiles/" + newImageName,
-                CategoryID = model.CategoryID,
-                WriterID = writer.WriterID,
-            };
+			Blog blog = new()
+			{
+				BlogTitle = model.BlogTitle,
+				BlogContent = model.BlogContent,
+				BlogStatus = true,
+				BlogCreatedAt = DateTime.Now,
+				BlogImage = "/WriterBlogFiles/" + newImageName,
+				CategoryID = model.CategoryID,
+				WriterID = writer.WriterID,
+			};
 
-            BlogValidator blogValidator = new();
-            ValidationResult result = blogValidator.Validate(blog);
+			BlogValidator blogValidator = new();
+			ValidationResult result = blogValidator.Validate(blog);
 
-            if (result.IsValid && model.BlogImage != null && (isJpg || isJpeg || isPng))
-            {
-                var directory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/WriterBlogFiles/");
+			if (result.IsValid && model.BlogImage != null && (isJpg || isJpeg || isPng))
+			{
+				var directory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/WriterBlogFiles/");
 
-                if (!Directory.Exists(directory))
-                {
-                    Directory.CreateDirectory(directory);
-                }
+				if (!Directory.Exists(directory))
+				{
+					Directory.CreateDirectory(directory);
+				}
 
-                var location = Path.Combine(directory + newImageName);
-                var stream = new FileStream(location, FileMode.Create);
-                model.BlogImage.CopyTo(stream);
-                stream.Close();
+				var location = Path.Combine(directory + newImageName);
+				var stream = new FileStream(location, FileMode.Create);
+				model.BlogImage.CopyTo(stream);
+				stream.Close();
 
-                _blogManager.AddEntity(blog);
+				_blogManager.AddEntity(blog);
 
-                return RedirectToAction("BlogListByWriter", "Blog");
-            }
-            else
-            {
-                PopulateCategoriesDropdown();
+				return RedirectToAction("BlogListByWriter", "Blog");
+			}
+			else
+			{
+				PopulateCategoriesDropdown();
 
-                foreach (var item in result.Errors)
-                {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
-            }
+				foreach (var item in result.Errors)
+				{
+					ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+				}
+			}
 
-            return View();
-        }
+			return View();
+		}
 
-        public IActionResult DeleteBlog(int id)
-        {
-            Blog blog = _blogManager.GetEntityById(id);
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot" + blog.BlogImage);
+		public IActionResult DeleteBlog(int id)
+		{
+			Blog blog = _blogManager.GetEntityById(id);
+			var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot" + blog.BlogImage);
 
-            if (System.IO.File.Exists(path))
-            {
-                System.IO.File.Delete(path);
-            }
+			if (System.IO.File.Exists(path))
+			{
+				System.IO.File.Delete(path);
+			}
 
-            _blogManager.DeleteEntity(blog);
+			_blogManager.DeleteEntity(blog);
 
-            return RedirectToAction("BlogListByWriter");
-        }
+			return RedirectToAction("BlogListByWriter");
+		}
 
-        [HttpGet]
-        public IActionResult EditBlog(int id)
-        {
-            var value = _blogManager.GetEntityById(id);
-            PopulateCategoriesDropdown();
+		[HttpGet]
+		public IActionResult EditBlog(int id)
+		{
+			var value = _blogManager.GetEntityById(id);
+			PopulateCategoriesDropdown();
 
-            return View(value);
-        }
+			return View(value);
+		}
 
-        [HttpPost]
-        public async Task<IActionResult> EditBlog(Blog blog)
-        {
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            string userId = await _userManager.GetUserIdAsync(user);
-            var writer = _writerManager.GetWriterBySession(userId);
+		[HttpPost]
+		public async Task<IActionResult> EditBlog(Blog blog)
+		{
+			var user = await _userManager.FindByNameAsync(User.Identity.Name);
+			string userId = await _userManager.GetUserIdAsync(user);
+			var writer = _writerManager.GetWriterBySession(userId);
 
-            blog.WriterID = writer.WriterID;
-            _blogManager.UpdateEntity(blog);
+			blog.WriterID = writer.WriterID;
+			_blogManager.UpdateEntity(blog);
 
-            return RedirectToAction("BlogListByWriter");
-        }
+			return RedirectToAction("BlogListByWriter");
+		}
 
-        private void PopulateCategoriesDropdown()
-        {
-            List<SelectListItem> categories = (from x in _categoryManager.GetEntities()
-                                               select new SelectListItem
-                                               {
-                                                   Text = x.CategoryName,
-                                                   Value = x.CategoryID.ToString()
-                                               }).ToList();
-            ViewBag.categories = categories;
-        }
-    }
+		private void PopulateCategoriesDropdown()
+		{
+			List<SelectListItem> categories = (from x in _categoryManager.GetEntities()
+											   select new SelectListItem
+											   {
+												   Text = x.CategoryName,
+												   Value = x.CategoryID.ToString()
+											   }).ToList();
+			ViewBag.categories = categories;
+		}
+	}
 }

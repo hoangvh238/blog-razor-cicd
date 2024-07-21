@@ -44,6 +44,7 @@ namespace CoreDemo
             {
                 options.ValidationInterval = TimeSpan.Zero;
             });
+            
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -77,6 +78,22 @@ namespace CoreDemo
 
             services.AddFluentValidationAutoValidation();
             services.AddFluentValidationClientsideAdapters();
+
+            services.AddAuthentication().AddOAuth("Google", (options =>
+                                                {
+                                                    IConfigurationSection googleAuthenticationSection = Configuration.GetSection("Authentication:Google");
+                                                    options.ClientId = googleAuthenticationSection["ClientID"];
+                                                    options.ClientSecret = googleAuthenticationSection["ClientSecret"];
+                                                    options.CallbackPath = "/dang-nhap-bang-google";
+                                                }));
+            services.AddAuthentication().AddOAuth("Facebook", options =>
+            {
+                IConfiguration facebookLogin = Configuration.GetSection("Authentication:Facebook");
+                options.ClientId = facebookLogin["ClientId"];
+                options.ClientSecret = facebookLogin["ClientSecret"];
+                options.CallbackPath = "/dang-nhap-bang-facebook";
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

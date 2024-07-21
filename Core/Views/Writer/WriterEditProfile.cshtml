@@ -1,50 +1,49 @@
 ﻿@model Core.Models.UserUpdateViewModel
 
 @{
-    ViewData["Title"] = "WriterEditProfile";
+    ViewData["Title"] = "Edit Profile";
     Layout = "~/Views/Shared/WriterLayout.cshtml";
 }
 
 <div class="col-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h1>Profili Düzenle</h1>
+            <h1>Chỉnh sửa Hồ sơ</h1>
             <br />
             <form class="forms-sample" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <h6>Ad - Soyad</h6>
+                    <h6>Họ và tên</h6>
                     @Html.TextBoxFor(x => x.WriterNameSurname, new { @class = "form-control" })
                     @Html.ValidationMessageFor(x => x.WriterNameSurname, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
-                    <h6>Kullanıcı Adı</h6>
+                    <h6>Tên đăng nhập</h6>
                     @Html.TextBoxFor(x => x.WriterUserName, new { @class = "form-control", autocomplete = "off" })
                     @Html.ValidationMessageFor(x => x.WriterUserName, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
-                    <h6>Email adresi</h6>
+                    <h6>Địa chỉ Email</h6>
                     @Html.TextBoxFor(x => x.WriterMail, new { @class = "form-control", autocomplete = "off" })
                     @Html.ValidationMessageFor(x => x.WriterMail, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
-                    <h6>Şifre</h6>
+                    <h6>Mật khẩu</h6>
                     @Html.PasswordFor(x => x.WriterPassword, new { @class = "form-control", autocomplete = "off" })
                     @Html.ValidationMessageFor(x => x.WriterPassword, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
-                    <h6>Şifre - Tekrar</h6>
+                    <h6>Xác nhận mật khẩu</h6>
                     @Html.Password("ConfirmPassword", null, new { @class = "form-control", autocomplete = "off" })
                     @Html.ValidationMessage("ConfirmPassword", null, new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
-                    <h6>Hakkımda</h6>
+                    <h6>Về tôi</h6>
                     @Html.TextAreaFor(x => x.WriterAbout, 10, 3, new { @class = "form-control" })
                     @Html.ValidationMessageFor(x => x.WriterAbout, "", new { @class = "text-danger" })
                 </div>
-                <button type="submit" class="btn btn-gradient-primary mr-2">Güncelle</button>
-                <a href="/Dashboard/Index/" class="btn btn-light">İptal</a>
+                <button type="submit" class="btn btn-gradient-primary mr-2">Cập nhật</button>
+                <a href="/Dashboard/Index/" class="btn btn-light">Hủy</a>
             </form>
         </div>
     </div>
 </div>
-

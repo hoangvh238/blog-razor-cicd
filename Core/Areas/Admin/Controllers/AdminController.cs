@@ -9,181 +9,181 @@ using System.Threading.Tasks;
 
 namespace Core.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles = "Admin")]
-    public class AdminController : Controller
-    {
-        private readonly UserManager<User> _userManager;
+	[Area("Admin")]
+	[Authorize(Roles = "Admin")]
+	public class AdminController : Controller
+	{
+		private readonly UserManager<User> _userManager;
 
-        public AdminController(UserManager<User> userManager)
-        {
-            _userManager = userManager;
-        }
+		public AdminController(UserManager<User> userManager)
+		{
+			_userManager = userManager;
+		}
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+		public IActionResult Index()
+		{
+			return View();
+		}
 
-        public PartialViewResult AdminNavbarPartial()
-        {
-            return PartialView();
-        }
+		public PartialViewResult AdminNavbarPartial()
+		{
+			return PartialView();
+		}
 
-        public IActionResult Search(AdminSearchViewModel searchViewModel)
-        {
-            var roles = GetRoles().Result;
+		public IActionResult Search(AdminSearchViewModel searchViewModel)
+		{
+			var roles = GetRoles().Result;
 
-            if (roles.Contains("Admin"))
-            {
-                searchViewModel.UserType = "Admin";
-            }
-            else if (roles.Contains("Writer"))
-            {
-                searchViewModel.UserType = "Writer";
-            }
-            else
-            {
-                searchViewModel.UserType = "User/Member";
-            }
+			if (roles.Contains("Admin"))
+			{
+				searchViewModel.UserType = "Admin";
+			}
+			else if (roles.Contains("Writer"))
+			{
+				searchViewModel.UserType = "Writer";
+			}
+			else
+			{
+				searchViewModel.UserType = "User/Member";
+			}
 
-            var searchResults = SearchPages(searchViewModel);
+			var searchResults = SearchPages(searchViewModel);
 
-            return View(searchResults);
-        }
+			return View(searchResults);
+		}
 
-        private static List<AdminSearchResultViewModel> SearchPages(AdminSearchViewModel model)
-        {
-            List<AdminSearchResultViewModel> searchResults = new();
+		private static List<AdminSearchResultViewModel> SearchPages(AdminSearchViewModel model)
+		{
+			List<AdminSearchResultViewModel> searchResults = new();
 
-            List<(string controller, string action)> adminControllerAndActions = new()
-            {
-                ("Admin", "Index"),
-                ("Blog", "Index"),
-                ("Category", "Index"),
-                ("Category", "AddCategory"),
-                ("Chart", "Index"),
-                ("Comment","Index"),
-                ("Excel", "BlogListToExcel"),
-                ("Message", "Inbox"),
-                ("Message", "SendBox"),
-                ("Message", "SendMessage"),
-                ("Role", "Index"),
-                ("Role", "UserRoleList"),
-                ("Role", "AddRole"),
-                ("Writer", "Index"),
-                ("Writer", "WriterAdd"),
+			List<(string controller, string action)> adminControllerAndActions = new()
+			{
+				("Admin", "Index"),
+				("Blog", "Index"),
+				("Category", "Index"),
+				("Category", "AddCategory"),
+				("Chart", "Index"),
+				("Comment","Index"),
+				("Excel", "BlogListToExcel"),
+				("Message", "Inbox"),
+				("Message", "SendBox"),
+				("Message", "SendMessage"),
+				("Role", "Index"),
+				("Role", "UserRoleList"),
+				("Role", "AddRole"),
+				("Writer", "Index"),
+				("Writer", "WriterAdd"),
 
-            };
+			};
 
-            List<(string controller, string action)> writerControllerAndActions = new()
-            {
-                ("About", "Index"),
-                ("Blog", "BlogAdd"),
-                ("Writer", "WriterEditProfile"),
-                ("Dashboard", "Index"),
-                ("Message", "Inbox"),
-                ("Message", "SendBox"),
-                ("Message", "SendMessage"),
-            };
+			List<(string controller, string action)> writerControllerAndActions = new()
+			{
+				("About", "Index"),
+				("Blog", "BlogAdd"),
+				("Writer", "WriterEditProfile"),
+				("Dashboard", "Index"),
+				("Message", "Inbox"),
+				("Message", "SendBox"),
+				("Message", "SendMessage"),
+			};
 
-            List<(string controller, string action)> userControllerAndActions = new()
-            {
-                ("Blog", "Index"),
-                ("Contact", "Index"),
-                ("Home", "Index"),
-                ("Login", "Index"),
-                ("Register", "Index"),
+			List<(string controller, string action)> userControllerAndActions = new()
+			{
+				("Blog", "Index"),
+				("Contact", "Index"),
+				("Home", "Index"),
+				("Login", "Index"),
+				("Register", "Index"),
 
-            };
+			};
 
-            foreach (var (controller, action) in userControllerAndActions)
-            {
-                if (string.Equals(model.SearchTerm, controller, System.StringComparison.OrdinalIgnoreCase)
-                    || string.Equals(model.SearchTerm, action, System.StringComparison.OrdinalIgnoreCase))
-                {
-                    var result = new AdminSearchResultViewModel
-                    {
-                        Payload = "Şu terim için sonuçlar: " + model.SearchTerm,
-                        ControllerName = "/" + controller + "/",
-                        ActionName = action + "/",
-                    };
+			foreach (var (controller, action) in userControllerAndActions)
+			{
+				if (string.Equals(model.SearchTerm, controller, System.StringComparison.OrdinalIgnoreCase)
+					|| string.Equals(model.SearchTerm, action, System.StringComparison.OrdinalIgnoreCase))
+				{
+					var result = new AdminSearchResultViewModel
+					{
+						Payload = "Kết quả cho thuật ngữ: " + model.SearchTerm,
+						ControllerName = "/" + controller + "/",
+						ActionName = action + "/",
+					};
 
-                    searchResults.Add(result);
-                }
-            }
+					searchResults.Add(result);
+				}
+			}
 
-            if (model.UserType == "Admin")
-            {
-                foreach (var (controller, action) in adminControllerAndActions)
-                {
-                    if (string.Equals(model.SearchTerm, controller, System.StringComparison.OrdinalIgnoreCase)
-                        || string.Equals(model.SearchTerm, action, System.StringComparison.OrdinalIgnoreCase))
-                    {
-                        var result = new AdminSearchResultViewModel
-                        {
-                            Payload = "Şu terim için sonuçlar: " + model.SearchTerm,
-                            ControllerName = "/Admin/" + controller + "/",
-                            ActionName = action + "/",
-                        };
+			if (model.UserType == "Admin")
+			{
+				foreach (var (controller, action) in adminControllerAndActions)
+				{
+					if (string.Equals(model.SearchTerm, controller, System.StringComparison.OrdinalIgnoreCase)
+						|| string.Equals(model.SearchTerm, action, System.StringComparison.OrdinalIgnoreCase))
+					{
+						var result = new AdminSearchResultViewModel
+						{
+							Payload = "Kết quả cho thuật ngữ: " + model.SearchTerm,
+							ControllerName = "/Admin/" + controller + "/",
+							ActionName = action + "/",
+						};
 
-                        searchResults.Add(result);
-                    }
-                }
+						searchResults.Add(result);
+					}
+				}
 
-                foreach (var (controller, action) in writerControllerAndActions)
-                {
-                    if (string.Equals(model.SearchTerm, controller, System.StringComparison.OrdinalIgnoreCase)
-                        || string.Equals(model.SearchTerm, action, System.StringComparison.OrdinalIgnoreCase))
-                    {
-                        var result = new AdminSearchResultViewModel
-                        {
-                            Payload = "Şu terim için sonuçlar: " + model.SearchTerm,
-                            ControllerName = "/" + controller + "/",
-                            ActionName = action + "/",
-                        };
+				foreach (var (controller, action) in writerControllerAndActions)
+				{
+					if (string.Equals(model.SearchTerm, controller, System.StringComparison.OrdinalIgnoreCase)
+						|| string.Equals(model.SearchTerm, action, System.StringComparison.OrdinalIgnoreCase))
+					{
+						var result = new AdminSearchResultViewModel
+						{
+							Payload = "Kết quả cho thuật ngữ: " + model.SearchTerm,
+							ControllerName = "/" + controller + "/",
+							ActionName = action + "/",
+						};
 
-                        searchResults.Add(result);
-                    }
-                }
-            }
+						searchResults.Add(result);
+					}
+				}
+			}
 
-            if (model.UserType == "Writer")
-            {
-                foreach (var (controller, action) in writerControllerAndActions)
-                {
-                    if (string.Equals(model.SearchTerm, controller, System.StringComparison.OrdinalIgnoreCase)
-                        || string.Equals(model.SearchTerm, action, System.StringComparison.OrdinalIgnoreCase))
-                    {
-                        var result = new AdminSearchResultViewModel
-                        {
-                            Payload = "Şu terim için sonuçlar: " + model.SearchTerm,
-                            ControllerName = "/" + controller + "/",
-                            ActionName = action + "/",
-                        };
+			if (model.UserType == "Writer")
+			{
+				foreach (var (controller, action) in writerControllerAndActions)
+				{
+					if (string.Equals(model.SearchTerm, controller, System.StringComparison.OrdinalIgnoreCase)
+						|| string.Equals(model.SearchTerm, action, System.StringComparison.OrdinalIgnoreCase))
+					{
+						var result = new AdminSearchResultViewModel
+						{
+							Payload = "Kết quả cho thuật ngữ: " + model.SearchTerm,
+							ControllerName = "/" + controller + "/",
+							ActionName = action + "/",
+						};
 
-                        searchResults.Add(result);
-                    }
-                }
-            }
+						searchResults.Add(result);
+					}
+				}
+			}
 
-            return searchResults;
-        }
+			return searchResults;
+		}
 
-        private async Task<List<string>> GetRoles()
-        {
-            try
-            {
-                var user = await _userManager.FindByNameAsync(User.Identity.Name);
-                var roles = _userManager.GetRolesAsync(user).Result.ToList();
+		private async Task<List<string>> GetRoles()
+		{
+			try
+			{
+				var user = await _userManager.FindByNameAsync(User.Identity.Name);
+				var roles = _userManager.GetRolesAsync(user).Result.ToList();
 
-                return roles;
-            }
-            catch
-            {
-                List<string> roles = new();
-                return roles;
-            }
-        }
-    }
+				return roles;
+			}
+			catch
+			{
+				List<string> roles = new();
+				return roles;
+			}
+		}
+	}
 }

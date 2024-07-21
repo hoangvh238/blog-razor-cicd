@@ -1,12 +1,11 @@
-﻿
-<div class="col-md-4 top-forms text-center mt-lg-3 mt-md-1 mt-0">
+﻿<div class="col-md-4 top-forms text-center mt-lg-3 mt-md-1 mt-0">
     @{
         if (!string.IsNullOrEmpty(@ViewBag.Writer))
         {
-            <p>Hoşgeldin @ViewBag.Writer</p>
+            <p>Chào mừng bạn, @ViewBag.Writer</p>
             <span class="mx-lg-4 mx-md-2  mx-1">
                 <a href="/Login/LogOut/">
-                    <i class="fas fa-lock"></i> Çıkış Yap
+                    <i class="fas fa-lock"></i> Đăng Xuất
                 </a>
             </span>
         }
@@ -14,22 +13,22 @@
         {
             <span class="mx-lg-4 mx-md-2  mx-1">
                 <a href="/Login/Index/">
-                    <i class="fas fa-lock"></i> Giriş Yap
+                    <i class="fas fa-lock"></i> Đăng Nhập
                 </a>
             </span>
             <span>
                 <a href="/Register/Index/">
-                    <i class="far fa-user"></i> Kayıt Ol
+                    <i class="far fa-user"></i> Đăng Ký
                 </a>
             </span>
         }
     }
 </div>
 
-<div id="topButtons" class="col-md-4 mt-lg-3 mt-md-1 mt-0 terr" style="display:flex; justify-content: end; text-align: center;" >
+<div id="topButtons" class="col-md-4 mt-lg-3 mt-md-1 mt-0 terr" style="display:flex; justify-content: end; text-align: center;">
     <span>
-        <a style=" background-color: #fff; color:#000; border: 1px solid black; height: 30px; width: 90px; padding: 5px; font-size: 10px; text-align: center; line-height: 19px; margin:5px" href="/Dashboard/Index/" class="btn btn-primary">Yazar Paneli</a>
-        <a style=" background-color: #fff; color:#000; border: 1px solid black;height: 30px; width: 90px; padding: 5px; font-size: 10px; text-align: center; line-height: 19px; margin:5px" href="/Admin/Admin/Index/" class="btn btn-primary">Admin Paneli</a>
+        <a style=" background-color: #fff; color:#000; border: 1px solid black; height: 30px; width: 90px; padding: 5px; font-size: 10px; text-align: center; line-height: 19px; margin:5px" href="/Dashboard/Index/" class="btn btn-primary">Bảng Điều Khiển Người Viết</a>
+        <a style=" background-color: #fff; color:#000; border: 1px solid black;height: 30px; width: 90px; padding: 5px; font-size: 10px; text-align: center; line-height: 19px; margin:5px" href="/Admin/Admin/Index/" class="btn btn-primary">Bảng Điều Khiển Quản Trị</a>
     </span>
     <script>
         var buttons = document.getElementById('topButtons');

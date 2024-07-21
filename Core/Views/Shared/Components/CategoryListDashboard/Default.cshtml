@@ -5,32 +5,32 @@
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h3>Kategoriler</h3>
+                <h3>Danh Mục</h3>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
                                 <th><h4>ID</h4></th>
-                                <th><h4>Kategori Adı</h4></th>
-                                <th><h4>Durumu</h4></th>
-                                <th><h4>Puanlama</h4></th>
+                                <th><h4>Tên Danh Mục</h4></th>
+                                <th><h4>Tình Trạng</h4></th>
+                                <th><h4>Đánh Giá</h4></th>
                             </tr>
                         </thead>
                         <tbody>
-                             @foreach(var item in Model)
+                            @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td><h4>@item.CategoryID</h4> </td>
+                                    <td><h4>@item.CategoryID</h4></td>
                                     <td><h5>@item.CategoryName</h5></td>
                                     <td>
                                         @{
                                             if (item.CategoryStatus)
                                             {
-                                                <span class="badge badge-success">Aktif</span>
+                                                <span class="badge badge-success">Hoạt Động</span>
                                             }
                                             else
                                             {
-                                                <span class="badge badge-dark">Pasif</span>
+                                                <span class="badge badge-dark">Không Hoạt Động</span>
                                             }
                                         }
                                     </td>

@@ -38,16 +38,16 @@ namespace CoreDemo.Controllers
 
             if (userModel.WriterPassword != confirmPassword)
             {
-                ModelState.AddModelError("ConfirmPassword", "Şifreler eşleşmiyor.");
+                ModelState.AddModelError("ConfirmPassword", "Mật khẩu không khớp.");
             }
 
             if (userModel.WriterImage == null)
             {
-                ModelState.AddModelError("WriterImage", "Lütfen bir profil resmi yükleyiniz.");
+                ModelState.AddModelError("WriterImage", "Vui lòng tải lên ảnh hồ sơ.");
             }
             else if (!isJpg && !isJpeg && !isPng)
             {
-                ModelState.AddModelError("WriterImage", "Lütfen geçerli bir profil resmi yükleyiniz.");
+                ModelState.AddModelError("WriterImage", "Vui lòng tải lên ảnh hồ sơ hợp lệ.");
             }
 
             Writer writer = new();

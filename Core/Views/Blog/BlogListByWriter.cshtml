@@ -2,20 +2,20 @@
 @model List<Blog>
 
 @{
-    ViewData["Title"] = "BlogListByWriter";
+    ViewData["Title"] = "Blog list by Writer";
     Layout = "~/Views/Shared/WriterLayout.cshtml";
 }
 
-<h1>Bloglarınız</h1>
+<h1>Blog của bạn</h1>
 <div class="table-responsive">
     <table class="table">
         <thead>
             <tr>
                 <th><h5>ID</h5></th>
-                <th><h5>Blog Başlığı</h5></th>
-                <th><h5>Oluşturma Tarihi</h5></th>
-                <th><h5>Kategori</h5></th>
-                <th><h5>Durum</h5></th>
+                <th><h5>Tiêu đề Blog</h5></th>
+                <th><h5>Ngày tạo</h5></th>
+                <th><h5>Danh mục</h5></th>
+                <th><h5>Trạng thái</h5></th>
                 <th><h5></h5></th>
                 <th><h5></h5></th>
             </tr>
@@ -32,38 +32,38 @@
                         @{
                             if (item.BlogStatus)
                             {
-                                <span class="badge badge-success">Aktif</span>
+                                <span class="badge badge-success">Hoạt động</span>
                             }
                             else
                             {
-                                <span class="badge badge-dark">Pasif</span>
+                                <span class="badge badge-dark">Không hoạt động</span>
                             }
                         }
                     </td>
                     <td>
                         <button class="btn btn-danger" style="width:60px; padding: 8px 10px; font-size: 14px; text-align: center;"
-                                onclick="confirmDelete('@item.BlogID')">Sil
+                                onclick="confirmDelete('@item.BlogID')">
+                            Xóa
                         </button>
                     </td>
-                    <td><a href="/Blog/EditBlog/@item.BlogID" class="btn btn-warning" style="padding: 8px 10px; font-size: 14px; text-align: center;">Düzenle</a></td>
+                    <td><a href="/Blog/EditBlog/@item.BlogID" class="btn btn-warning" style="padding: 8px 10px; font-size: 14px; text-align: center;">Chỉnh sửa</a></td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
 <br />
-<div
-class="d-flex justify-content-center">
-    <a href="/Blog/BlogAdd/" class="btn btn-inverse-primary">Yeni Blog Oluştur</a>
+<div class="d-flex justify-content-center">
+    <a href="/Blog/BlogAdd/" class="btn btn-inverse-primary">Tạo Blog mới</a>
 </div>
 <script>
     function confirmDelete(blogId) {
         Swal.fire({
-            title: 'Sil?',
-            text: 'Blogu silmek istediğinize emin misiniz?',
+            title: 'Xóa?',
+            text: 'Bạn có chắc chắn muốn xóa blog này không?',
             showDenyButton: true,
-            confirmButtonText: 'Evet',
-            denyButtonText: 'Hayır',
+            confirmButtonText: 'Có',
+            denyButtonText: 'Không',
             customClass: {
                 actions: 'my-actions',
                 cancelButton: 'order-1 right-gap',

@@ -7,7 +7,7 @@
 
 <section class="main-content-w3layouts-agileits">
     <div class="container">
-        <h3 class="tittle">Hakkımızda</h3>
+        <h3 class="tittle">Về Chúng Tôi</h3>
         <div class="row inner-sec">
             <div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
                 <div class="blog-grid-top">
@@ -17,29 +17,26 @@
                         </a>
                     </div>
                     <h3>
-                        Biz Kimiz & Misyonumuz & Vizyonumuz
+                        Chúng Tôi Là Ai & Sứ Mệnh & Tầm Nhìn
                     </h3>
                     @foreach (var item in Model)
                     {
-
                         <p>@item.AboutDetailsFirst</p>
-
                     }
-                    <a href="/Blog/Index/" class="btn btn-primary read-m">Bloglar</a>
+                    <a href="/Blog/Index/" class="btn btn-primary read-m">Blog</a>
                 </div>
-
             </div>
             <aside class="col-lg-4 agileits-w3ls-right-blog-con text-right">
                 <div class="right-blog-info text-left">
                     <div class="tech-btm">
                         <img src="~/coredemotheme/images/banner1.jpg" class="img-fluid" alt="">
                     </div>
-                    <h4>Mail Bültenine Abone Ol</h4>
+                    <h4>Đăng Ký Nhận Bản Tin</h4>
                     <div class="tech-btm">
-                        <p>Bloglar size mail ile yollanacaktır. </p>
+                        <p>Các bài viết blog sẽ được gửi cho bạn qua email.</p>
                         <form id="newsabout" method="post">
                             <input type="email" placeholder="Email" required="" name="Mail">
-                            <input type="submit" value="ABONE OL">
+                            <input type="submit" value="ĐĂNG KÝ">
                         </form>
                         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -57,16 +54,16 @@
                                         $("input[name='Mail']").val('');
 
                                         Swal.fire({
-                                            title: 'Başarılı',
+                                            title: 'Thành Công',
                                             icon: 'success',
-                                            confirmButtonText: 'Tamam'
+                                            confirmButtonText: 'Đồng Ý'
                                         });
                                     },
                                     error: function (error) {
                                         Swal.fire({
-                                            title: 'Hata',
+                                            title: 'Lỗi',
                                             icon: 'error',
-                                            confirmButtonText: 'Tamam'
+                                            confirmButtonText: 'Đồng Ý'
                                         });
                                     }
                                 });

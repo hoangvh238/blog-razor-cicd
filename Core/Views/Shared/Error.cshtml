@@ -1,26 +1,25 @@
 ﻿@model ErrorViewModel
 @{
-    ViewData["Title"] = "Error";
+    ViewData["Title"] = "Lỗi";
 }
 
 <div style="padding:20px">
-    <h1 class="text-danger">Hata.</h1>
-    <h2 class="text-danger">İsteğiniz işlenirken bir hata meydana geldi.</h2>
+    <h1 class="text-danger">Lỗi.</h1>
+    <h2 class="text-danger">Đã xảy ra lỗi khi xử lý yêu cầu của bạn.</h2>
 
     @if (Model.ShowRequestId)
     {
         <p>
-            <strong>İstek ID:</strong> <code>@Model.RequestId</code>
+            <strong>ID Yêu Cầu:</strong> <code>@Model.RequestId</code>
         </p>
     }
 
-    <h3>Geliştirme Modu</h3>
+    <h3>Chế Độ Phát Triển</h3>
     <p>
-        Şu moda dönmek <strong>Geliştirme</strong> hatayı daha detaylı görüntüleme olanağı sağlar.
+        Chuyển về chế độ <strong>Phát Triển</strong> sẽ cung cấp khả năng xem chi tiết lỗi.
     </p>
     <p>
-        <strong>Geliştirme ortamı, yayımlanmış uygulamalar için kapalı olmalıdır.</strong>
-        <strong>Geliştirme</strong> ortamı şuradan ayarlanabilir <strong>ASPNETCORE_ENVIRONMENT</strong> ortam adını şuna ayarlayın <strong>Geliştirme</strong>
-        ve yeniden başlatınız.
+        <strong>Chế độ phát triển nên bị tắt cho các ứng dụng đã xuất bản.</strong>
+        Chế độ <strong>Phát Triển</strong> có thể được thiết lập bằng cách đặt biến môi trường <strong>ASPNETCORE_ENVIRONMENT</strong> thành <strong>Phát Triển</strong> và khởi động lại.
     </p>
 </div>

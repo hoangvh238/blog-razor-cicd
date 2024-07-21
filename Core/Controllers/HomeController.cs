@@ -20,21 +20,25 @@ namespace CoreDemo.Controllers
             _userManager = userManager;
         }
 
+        // Hiển thị trang chính
         public IActionResult Index()
         {
             return View();
         }
 
+        // Hiển thị trang lỗi
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        // Xử lý tìm kiếm
         public IActionResult Search(SearchViewModel searchViewModel)
         {
             var roles = GetRoles().Result;
 
+            // Xác định loại người dùng
             if (roles.Contains("Admin"))
             {
                 searchViewModel.UserType = "Admin";
@@ -53,10 +57,12 @@ namespace CoreDemo.Controllers
             return View(searchResults);
         }
 
+        // Tìm kiếm các trang dựa trên mẫu tìm kiếm
         private static List<SearchResultViewModel> SearchPages(SearchViewModel model)
         {
             List<SearchResultViewModel> searchResults = new();
 
+            // Các controller và action cho admin
             List<(string controller, string action)> adminControllerAndActions = new()
             {
                 ("Admin", "Index"),
@@ -74,9 +80,9 @@ namespace CoreDemo.Controllers
                 ("Role", "AddRole"),
                 ("Writer", "Index"),
                 ("Writer", "WriterAdd"),
-
             };
 
+            // Các controller và action cho writer
             List<(string controller, string action)> writerControllerAndActions = new()
             {
                 ("About", "Index"),
@@ -88,6 +94,7 @@ namespace CoreDemo.Controllers
                 ("Message", "SendMessage"),
             };
 
+            // Các controller và action cho user
             List<(string controller, string action)> userControllerAndActions = new()
             {
                 ("Blog", "Index"),
@@ -95,9 +102,9 @@ namespace CoreDemo.Controllers
                 ("Home", "Index"),
                 ("Login", "Index"),
                 ("Register", "Index"),
-
             };
 
+            // Tìm kiếm cho người dùng thông thường
             foreach (var (controller, action) in userControllerAndActions)
             {
                 if (string.Equals(model.SearchTerm, controller, System.StringComparison.OrdinalIgnoreCase)
@@ -105,7 +112,7 @@ namespace CoreDemo.Controllers
                 {
                     var result = new SearchResultViewModel
                     {
-                        Payload = "Şu terim için sonuçlar: " + model.SearchTerm,
+                        Payload = "Kết quả cho từ khóa: " + model.SearchTerm,
                         ControllerName = "/" + controller + "/",
                         ActionName = action + "/",
                     };
@@ -114,6 +121,7 @@ namespace CoreDemo.Controllers
                 }
             }
 
+            // Tìm kiếm cho admin
             if (model.UserType == "Admin")
             {
                 foreach (var (controller, action) in adminControllerAndActions)
@@ -123,7 +131,7 @@ namespace CoreDemo.Controllers
                     {
                         var result = new SearchResultViewModel
                         {
-                            Payload = "Şu terim için sonuçlar: " + model.SearchTerm,
+                            Payload = "Kết quả cho từ khóa: " + model.SearchTerm,
                             ControllerName = "/Admin/" + controller + "/",
                             ActionName = action + "/",
                         };
@@ -139,7 +147,7 @@ namespace CoreDemo.Controllers
                     {
                         var result = new SearchResultViewModel
                         {
-                            Payload = "Şu terim için sonuçlar: " + model.SearchTerm,
+                            Payload = "Kết quả cho từ khóa: " + model.SearchTerm,
                             ControllerName = "/" + controller + "/",
                             ActionName = action + "/",
                         };
@@ -149,6 +157,7 @@ namespace CoreDemo.Controllers
                 }
             }
 
+            // Tìm kiếm cho writer
             if (model.UserType == "Writer")
             {
                 foreach (var (controller, action) in writerControllerAndActions)
@@ -158,7 +167,7 @@ namespace CoreDemo.Controllers
                     {
                         var result = new SearchResultViewModel
                         {
-                            Payload = "Şu terim için sonuçlar: " + model.SearchTerm,
+                            Payload = "Kết quả cho từ khóa: " + model.SearchTerm,
                             ControllerName = "/" + controller + "/",
                             ActionName = action + "/",
                         };
@@ -171,6 +180,7 @@ namespace CoreDemo.Controllers
             return searchResults;
         }
 
+        // Lấy các vai trò của người dùng
         private async Task<List<string>> GetRoles()
         {
             try

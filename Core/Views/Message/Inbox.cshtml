@@ -7,25 +7,25 @@
 }
 <style>
     @@media (max-width: 450px) {
-    .ml-auto {
-        margin-left: 0 !important;
+        .ml-auto {
+            margin-left: 0 !important;
+        }
     }
-}
 </style>
 <div class="row">
-    <h1>Gelen Kutusu</h1>
-    <button onclick="window.location.href='/Message/SendBox/'" class="btn btn-outline-danger btn-fw ml-auto">Giden Kutusu</button>
+    <h1>Hộp Thư Đến</h1>
+    <button onclick="window.location.href='/Message/SendBox/'" class="btn btn-outline-danger btn-fw ml-auto">Hộp Thư Đi</button>
 </div>
 <div class="table-responsive">
     <table class="table">
         <thead>
             <tr>
                 <th><h5>ID</h5></th>
-                <th><h5>Konu</h5></th>
-                <th><h5>Mesaj İçeriği</h5></th>
-                <th><h5>Atılma Tarihi</h5></th>
-                <th><h5>Gönderen Adı</h5></th>
-                <th><h5>Gönderen Maili</h5></th>
+                <th><h5>Chủ Đề</h5></th>
+                <th><h5>Nội Dung Tin Nhắn</h5></th>
+                <th><h5>Ngày Gửi</h5></th>
+                <th><h5>Tên Người Gửi</h5></th>
+                <th><h5>Email Người Gửi</h5></th>
                 <th><h5></h5></th>
             </tr>
         </thead>
@@ -37,20 +37,23 @@
                     <td>@item.Subject</td>
                     <td>@item.MessageDetails</td>
                     <td>@item.MessageDate</td>
-                    <td>@{ if (item.SenderUser.WriterID == item.ReceiverUser.WriterID)
+                    <td>
+                        @{
+                            if (item.SenderUser.WriterID == item.ReceiverUser.WriterID)
                             {
-                                <span>@item.SenderUser.WriterNameSurname (Ben)</span>
+                                <span>@item.SenderUser.WriterNameSurname (Tôi)</span>
                             }
                             else
                             {
                                 <span>@item.SenderUser.WriterNameSurname</span>
-                            } }
+                            }
+                        }
                     </td>
                     <td>@item.SenderUser.WriterMail</td>
                     <td>
                         <button class="btn btn-danger" style="width:60px; padding: 8px 10px; font-size: 14px; text-align: center;"
                                 onclick="confirmDelete('@item.MessageID')">
-                            Sil
+                            Xóa
                         </button>
                     </td>
                 </tr>
@@ -60,17 +63,17 @@
 </div>
 <br />
 <div class="d-flex justify-content-center">
-    <a href="/Message/SendMessage/" class="btn btn-inverse-primary">Yeni Mesaj Gönder</a>
+    <a href="/Message/SendMessage/" class="btn btn-inverse-primary">Gửi Tin Nhắn Mới</a>
 </div>
 
 <script>
     function confirmDelete(messageId) {
         Swal.fire({
-            title: 'Sil?',
-            text: 'Mesajı silmek istediğinize emin misiniz?',
+            title: 'Xóa?',
+            text: 'Bạn có chắc chắn muốn xóa tin nhắn này?',
             showDenyButton: true,
-            confirmButtonText: 'Evet',
-            denyButtonText: 'Hayır',
+            confirmButtonText: 'Có',
+            denyButtonText: 'Không',
             customClass: {
                 actions: 'my-actions',
                 cancelButton: 'order-1 right-gap',
@@ -97,4 +100,3 @@
         border-bottom: 1px solid #dee2e6;
     }
 </style>
-

@@ -1,74 +1,76 @@
 ﻿@model Core.Models.UserRegisterViewModel
 
 @{
-	ViewData["Title"] = "Index";
-	Layout = "~/Views/Shared/UserLayout.cshtml";
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
 }
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 
 <section class="main-content-w3layouts-agileits">
-	<div class="container">
-		<h3 class="tittle">Kayıt Ol</h3>
-		<div class="inner-sec">
-			<div class="login p-5 bg-light mx-auto mw-100">
+    <div class="container">
+        <h3 class="tittle">Đăng Ký</h3>
+        <div class="inner-sec">
+            <div class="login p-5 bg-light mx-auto mw-100">
                 <form method="post" enctype="multipart/form-data">
                     <div class="form-group">
-                        <h6>Ad - Soyad</h6>
+                        <h6>Họ và Tên</h6>
                         @Html.TextBoxFor(x => x.WriterNameSurname, new { @class = "form-control" })
                         @Html.ValidationMessageFor(x => x.WriterNameSurname, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
-                        <h6>Kullanıcı Adı</h6>
+                        <h6>Tên Đăng Nhập</h6>
                         @Html.TextBoxFor(x => x.WriterUserName, new { @class = "form-control", autocomplete = "off" })
                         @Html.ValidationMessageFor(x => x.WriterUserName, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
-                        <h6>Email adresi</h6>
+                        <h6>Email</h6>
                         @Html.TextBoxFor(x => x.WriterMail, new { @class = "form-control", autocomplete = "off" })
                         @Html.ValidationMessageFor(x => x.WriterMail, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
-                        <h6>Şifre</h6>
+                        <h6>Mật Khẩu</h6>
                         @Html.PasswordFor(x => x.WriterPassword, new { @class = "form-control", autocomplete = "off" })
                         @Html.ValidationMessageFor(x => x.WriterPassword, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
-                        <h6>Şifre - Tekrar</h6>
+                        <h6>Xác Nhận Mật Khẩu</h6>
                         @Html.Password("ConfirmPassword", null, new { @class = "form-control", autocomplete = "off" })
                         @Html.ValidationMessage("ConfirmPassword", null, new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
-                        <h6>Görsel</h6>
-                        <input type="file" name="WriterImage" class="form-control" placeholder="Görsel Seç">
+                        <h6>Hình Ảnh</h6>
+                        <input type="file" name="WriterImage" class="form-control" placeholder="Chọn Hình Ảnh">
                         @Html.ValidationMessage("WriterImage", null, new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
-                        <h6>Hakkımda</h6>
+                        <h6>Giới Thiệu Bản Thân</h6>
                         @Html.TextAreaFor(x => x.WriterAbout, 10, 3, new { @class = "form-control" })
                         @Html.ValidationMessageFor(x => x.WriterAbout, "", new { @class = "text-danger" })
                     </div>
-                   <div class="form-group">
+                    <div class="form-group">
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="termsCheckbox">
                             <label id="btnAgree" class="form-check-label clickable-label" for="termsCheckbox">
-                                Tüm şartları okudum, kabul ediyorum.
+                                Tôi đã đọc và đồng ý với tất cả các điều khoản.
                             </label>
                         </div>
                     </div>
                     <br />
-                    <div class="d-flex justify-content-center"><button id="submitBtn" class="btn btn-primary submit mb-4" style="margin: 5px">Kayıt Ol</button></div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<script>
+                    <div class="d-flex justify-content-center">
+                        <button id="submitBtn" class="btn btn-primary submit mb-4" style="margin: 5px">Đăng Ký</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
         $('#submitBtn').prop('disabled', true);
 
         $('#btnAgree').click(function () {
             Swal.fire({
-                text: " Bu örnek bir rıza metnidir, okuduğunuz ve kabul ettiğiniz varsayılacaktır.",
+                text: " Đây là một mẫu văn bản đồng ý, bạn sẽ được coi là đã đọc và đồng ý.",
             });
         });
 
@@ -79,7 +81,7 @@
                 $('#submitBtn').prop('disabled', true);
             }
         });
-	</script>
+    </script>
     <style>
         .clickable-label {
             color: rgba(0, 0, 0, 0.7);

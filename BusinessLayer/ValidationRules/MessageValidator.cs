@@ -7,12 +7,12 @@ namespace BusinessLayer.ValidationRules
     {
         public MessageValidator()
         {
-            RuleFor(x => x.Subject).NotEmpty().WithMessage("Konu boş geçilemez");
-            RuleFor(x => x.MessageDetails).NotEmpty().WithMessage("Mesaj boş geçilemez");
-            RuleFor(x => x.Subject).MinimumLength(3).WithMessage("Lütfen en az 3 karakter girişi yapın");
-            RuleFor(x => x.Subject).MaximumLength(20).WithMessage("Lütfen 100 karakterden fazla değer girişi yapmayın");
-            RuleFor(x => x.MessageDetails).MinimumLength(10).WithMessage("Lütfen en az 10 karakter girişi yapın");
-            RuleFor(x => x.MessageDetails).MaximumLength(200).WithMessage("Lütfen 200 karakterden fazla değer girişi yapmayın");
+            RuleFor(x => x.Subject).NotEmpty().WithMessage("Chủ đề không được để trống");
+            RuleFor(x => x.MessageDetails).NotEmpty().WithMessage("Nội dung tin nhắn không được để trống");
+            RuleFor(x => x.Subject).MinimumLength(3).WithMessage("Vui lòng nhập ít nhất 3 ký tự");
+            RuleFor(x => x.Subject).MaximumLength(20).WithMessage("Vui lòng không nhập quá 20 ký tự");
+            RuleFor(x => x.MessageDetails).MinimumLength(10).WithMessage("Vui lòng nhập ít nhất 10 ký tự");
+            RuleFor(x => x.MessageDetails).MaximumLength(200).WithMessage("Vui lòng không nhập quá 200 ký tự");
         }
     }
 }

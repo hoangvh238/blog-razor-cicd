@@ -1,13 +1,12 @@
-﻿
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+﻿<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <div class="tech-btm">
-	<p>Bloglar size mail ile yollanacaktır. </p>
-	<form id="news"  method="post">
-		<input type="email" placeholder="Email" required="" name="Mail">
-		<input id="btnSubscribe" type="submit" value="ABONE OL">
-	</form>
+    <p>Blog sẽ được gửi đến bạn qua email.</p>
+    <form id="news" method="post">
+        <input type="email" placeholder="Email" required="" name="Mail">
+        <input id="btnSubscribe" type="submit" value="ĐĂNG KÝ">
+    </form>
 
     <script>
         $(document).on('submit', '#news', function (e) {
@@ -24,16 +23,16 @@
                     $("input[name='Mail']").val('');
 
                     Swal.fire({
-                        title: 'Başarılı',
+                        title: 'Thành Công',
                         icon: 'success',
-                        confirmButtonText: 'Tamam'
+                        confirmButtonText: 'OK'
                     });
                 },
                 error: function (error) {
                     Swal.fire({
-                        title: 'Hata',
+                        title: 'Lỗi',
                         icon: 'error',
-                        confirmButtonText: 'Tamam'
+                        confirmButtonText: 'OK'
                     });
                 }
             });

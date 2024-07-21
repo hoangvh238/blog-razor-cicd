@@ -25,7 +25,7 @@
                                 </li>
                                 <li>
                                     <a style="padding-left: 5px" href="#">
-                                        <i class="far fa-comment"></i> @Model.Comments.Count Yorum
+                                        <i class="far fa-comment"></i> @Model.Comments.Count Bình luận
                                     </a>
                                 </li>
                             </ul>
@@ -35,7 +35,7 @@
                         <a href="#">@Model.BlogTitle </a>
                     </h3>
                     <p>@Model.BlogContent</p>
-                    <a href="/Blog/Index/" class="btn btn-primary read-m">Tüm Bloglar</a>
+                    <a href="/Blog/Index/" class="btn btn-primary read-m">Tất cả Blog</a>
                 </div>
                 @await Component.InvokeAsync("CommentListByBlog", new { id = ViewBag.i })
                 @{
@@ -48,7 +48,7 @@
                     <div class="tech-btm">
                         <img src="~/coredemotheme/images/banner1.jpg" class="img-fluid" alt="">
                     </div>
-                    <h4>Mail Bültenine Abone Ol</h4>
+                    <h4>Đăng ký Nhận Bản Tin</h4>
                     @await Html.PartialAsync("~/Views/NewsLetter/SubscribeMail.cshtml")
                     @await Component.InvokeAsync("CategoryList")
                     @await Component.InvokeAsync("WriterLastBlog", new { id = ViewBag.i })

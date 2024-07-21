@@ -90,7 +90,7 @@ namespace Core.Areas.Admin.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("Name", "Boş Geçilemez!");
+                    ModelState.AddModelError("Name", "Không được bỏ trống");
                 }
             }
 

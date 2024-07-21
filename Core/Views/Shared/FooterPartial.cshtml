@@ -1,94 +1,94 @@
 ﻿<footer>
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-4 footer-grid-agileits-w3ls text-left">
-				<h3>Hakkımızda</h3>
-				<p>Blog, teknik bilgi gerektirmeden, kendi istedikleri şeyleri, kendi istedikleri şekilde yazan insanların oluşturabildikleri, günlüğe benzeyen web siteleridir. Genellikle güncelden eskiye doğru sıralanmış yazı ve yorumların yayınlandığı, web tabanlı bir yayını belirtir. Çoğunlukla her gönderinin sonunda yazarın adı ve gönderi zamanı belirtilir. Yayıncının seçimine göre okuyucular yazılara yorum yapılabilir... </p>
-				<div class="read">
-					<a href="/About/Index/" class="btn btn-primary read-m">Devamını Oku</a>
-				</div>
-			</div>
-			<div class="col-lg-4 footer-grid-agileits-w3ls text-left">
-				<div class="tech-btm">
-					<h3>Son Gönderiler</h3>
-					@await Component.InvokeAsync("LastBlogs")
-				</div>
-			</div>
-			<div class="col-lg-4 footer-grid-agileits-w3ls text-left">
-					<div class="tech-btm">
-						<h3>Mail Bültenine Abone Ol</h3>
-						<img src="~/coredemotheme/images/banner1.jpg" class="img-fluid" alt="">
-					</div>
-				<div class="tech-btm">
-					<p>Bloglar size mail ile yollanacaktır. </p>
-					<form id="newsfooter" method="post">
-						<input type="email" placeholder="Email" required="" name="Mail">
-						<input type="submit" value="ABONE OL">
-					</form>
-					<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-					<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-					<script>
-						$(document).on('submit', '#newsfooter', function (e) {
-							e.preventDefault();
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 footer-grid-agileits-w3ls text-left">
+                <h3>Về Chúng Tôi</h3>
+                <p>Blog là các trang web giống như nhật ký, nơi người dùng có thể viết về bất cứ điều gì họ muốn mà không cần kiến thức kỹ thuật. Nó thường chỉ một xuất bản web nơi các bài viết và bình luận được hiển thị theo thứ tự ngược lại. Thường thì tên tác giả và thời gian bài viết sẽ được chỉ định ở cuối mỗi bài viết. Tùy theo sự lựa chọn của nhà xuất bản, độc giả có thể bình luận trên các bài viết...</p>
+                <div class="read">
+                    <a href="/About/Index/" class="btn btn-primary read-m">Đọc Tiếp</a>
+                </div>
+            </div>
+            <div class="col-lg-4 footer-grid-agileits-w3ls text-left">
+                <div class="tech-btm">
+                    <h3>Bài Viết Mới Nhất</h3>
+                    @await Component.InvokeAsync("LastBlogs")
+                </div>
+            </div>
+            <div class="col-lg-4 footer-grid-agileits-w3ls text-left">
+                <div class="tech-btm">
+                    <h3>Đăng Ký Nhận Bản Tin</h3>
+                    <img src="~/coredemotheme/images/banner1.jpg" class="img-fluid" alt="">
+                </div>
+                <div class="tech-btm">
+                    <p>Các blog sẽ được gửi cho bạn qua email.</p>
+                    <form id="newsfooter" method="post">
+                        <input type="email" placeholder="Email" required="" name="Mail">
+                        <input type="submit" value="ĐĂNG KÝ">
+                    </form>
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                    <script>
+                        $(document).on('submit', '#newsfooter', function (e) {
+                            e.preventDefault();
 
-							var formData = $(this).serialize();
+                            var formData = $(this).serialize();
 
-							$.ajax({
-								url: '/NewsLetter/SubscribeMail',
-								type: 'POST',
-								data: formData,
-								success: function (response) {
-									$("input[name='Mail']").val('');
+                            $.ajax({
+                                url: '/NewsLetter/SubscribeMail',
+                                type: 'POST',
+                                data: formData,
+                                success: function (response) {
+                                    $("input[name='Mail']").val('');
 
-									Swal.fire({
-										title: 'Başarılı',
-										icon: 'success',
-										confirmButtonText: 'Tamam'
-									});
-								},
-								error: function (error) {
-									Swal.fire({
-										title: 'Hata',
-										icon: 'error',
-										confirmButtonText: 'Tamam'
-									});
-								}
-							});
-						});
-					</script>
-				</div>
-			</div>
-		</div>
-		<div class="footer-cpy text-center">
-			<div class="footer-social">
-				<div class="copyrighttop">
-					<ul>
-						<li class="mx-6">
-							<a class="facebook" href="https://www.facebook.com">
-								<i class="fab fa-facebook-f"></i>
-								<span>Facebook</span>
-							</a>
-						</li>
-						<li style="margin: 0 10px;">
-							<a class="facebook" href="https://www.x.com">
-								<i class="fab fa-twitter"></i>
-								<span>Twitter</span>
-							</a>
-						</li>
-						<li>
-							<a class="facebook" href="https://www.pinterest.com">
-								<i class="fab fa-pinterest-p"></i>
-								<span>Pinterest</span>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="w3layouts-agile-copyrightbottom">
-				<p>
-					© @DateTime.Now.Year PureBlog Web Sayfası. Tüm Hakları Saklıdır.
-				</p>
-			</div>
-		</div>
-	</div>
+                                    Swal.fire({
+                                        title: 'Thành Công',
+                                        icon: 'success',
+                                        confirmButtonText: 'OK'
+                                    });
+                                },
+                                error: function (error) {
+                                    Swal.fire({
+                                        title: 'Lỗi',
+                                        icon: 'error',
+                                        confirmButtonText: 'OK'
+                                    });
+                                }
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="footer-cpy text-center">
+            <div class="footer-social">
+                <div class="copyrighttop">
+                    <ul>
+                        <li class="mx-6">
+                            <a class="facebook" href="https://www.facebook.com">
+                                <i class="fab fa-facebook-f"></i>
+                                <span>Facebook</span>
+                            </a>
+                        </li>
+                        <li style="margin: 0 10px;">
+                            <a class="twitter" href="https://www.x.com">
+                                <i class="fab fa-twitter"></i>
+                                <span>Twitter</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pinterest" href="https://www.pinterest.com">
+                                <i class="fab fa-pinterest-p"></i>
+                                <span>Pinterest</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="w3layouts-agile-copyrightbottom">
+                <p>
+                    © @DateTime.Now.Year Trang Web PureBlog. Bảo Lưu Toàn Quyền.
+                </p>
+            </div>
+        </div>
+    </div>
 </footer>

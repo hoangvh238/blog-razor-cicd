@@ -1,31 +1,31 @@
 ﻿@model Core.Models.UserLoginViewModel
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/UserLayout.cshtml";
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/UserLayout.cshtml";
 }
 
 <section class="main-content-w3layouts-agileits">
 	<div class="container">
-		<h3 class="tittle">Giriş Yap</h3>
+		<h3 class="tittle">Đăng Nhập</h3>
 		<div class="inner-sec">
 			<div class="login p-5 bg-light mx-auto mw-100">
 				<form method="post">
 					<div class="form-group">
-						<label for="exampleInputEmail1 mb-2" style="font-size: 20px;">Kullanıcı Adı</label>
+						<label for="exampleInputEmail1 mb-2" style="font-size: 20px;">Tên Người Dùng</label>
 						<input type="text" class="form-control" asp-for="@Model.UserName" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
 						<span asp-validation-for="@Model.UserName" class="text-danger"></span>
 					</div>
 					<div class="form-group">
-						<label for="exampleInputPassword1 mb-2" style="font-size: 20px;">Şifre</label>
+						<label for="exampleInputPassword1 mb-2" style="font-size: 20px;">Mật Khẩu</label>
 						<input type="password" class="form-control" asp-for="@Model.Password" id="exampleInputPassword1" placeholder="">
 					</div>
 					<div class="form-check mb-2">
 						<input type="checkbox" class="form-check-input" asp-for="@Model.IsPersistent" id="exampleCheck1">
-						<label class="form-check-label" for="exampleCheck1">Beni Hatırla</label>
+						<label class="form-check-label" for="exampleCheck1">Nhớ Tôi</label>
 					</div>
-					<button type="submit" class="btn btn-primary submit mb-4">Giriş Yap</button>
-					<p><a href="/Register/Index/"> Hesabınız yok mu?</a></p>
+					<button type="submit" class="btn btn-primary submit mb-4">Đăng Nhập</button>
+					<p><a href="/Register/Index/"> Không có tài khoản?</a></p>
 				</form>
 			</div>
 		</div>

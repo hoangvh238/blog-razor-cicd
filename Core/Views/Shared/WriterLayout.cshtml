@@ -1,14 +1,13 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Yazar Paneli</title>
+    <title>Bảng Điều Khiển Người Viết</title>
     <link rel="stylesheet" href="~/writer/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="~/writer/assets/vendors/css/vendor.bundle.base.css">
     <link rel="stylesheet" href="~/writer/assets/css/style.css">
@@ -31,7 +30,7 @@
                             <div class="input-group-prepend bg-transparent">
                                 <i class="input-group-text border-0 mdi mdi-magnify"></i>
                             </div>
-                            <input type="text" name="SearchTerm" class="form-control bg-transparent border-0" placeholder="Aranacak Kelime...">
+                            <input type="text" name="SearchTerm" class="form-control bg-transparent border-0" placeholder="Từ khóa tìm kiếm...">
                         </div>
                     </form>
                 </div>
@@ -70,7 +69,7 @@
             @await Html.PartialAsync("~/Views/Writer/WriterNavBarPartial.cshtml")
             <div class="main-panel">
                 <div class="content-wrapper">
-                  @RenderBody()
+                    @RenderBody()
                 </div>
                 @await Html.PartialAsync("~/Views/Writer/WriterFooterPartial.cshtml")
             </div>
