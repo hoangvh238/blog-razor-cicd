@@ -1,0 +1,83 @@
+﻿@using EntityLayer.Concrete
+@model List<About>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<section class="main-content-w3layouts-agileits">
+    <div class="container">
+        <h3 class="tittle">About</h3>
+        <div class="row inner-sec">
+            <div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
+                <div class="blog-grid-top">
+                    <div class="blog_info_left_grid">
+                        <a href="single.html">
+                            <img src="~/coredemotheme/images/b5.jpg" class="img-fluid" alt="">
+                        </a>
+                    </div>
+                    <h3>
+                         Sứ mệnh & Tầm nhìn của chúng tôi
+                    </h3>
+                    @foreach (var item in Model)
+                    {
+
+                        <p>@item.AboutDetailsFirst</p>
+
+                    }
+                    <a href="/Blog/Index/" class="btn btn-primary read-m">Blog</a>
+                </div>
+
+            </div>
+            <aside class="col-lg-4 agileits-w3ls-right-blog-con text-right">
+                <div class="right-blog-info text-left">
+                    <div class="tech-btm">
+                        <img src="~/coredemotheme/images/banner1.jpg" class="img-fluid" alt="">
+                    </div>
+                    <h4>Đăng ký bài viết mới qua email</h4>
+                    <div class="tech-btm">
+                        <p>Blog sẽ được gửi cho bạn qua e-mail. </p>
+                        <form id="newsabout" method="post">
+                            <input type="email" placeholder="Email" required="" name="Mail">
+                            <input type="submit" value="Đăng ký">
+                        </form>
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                        <script>
+                            $(document).on('submit', '#newsabout', function (e) {
+                                e.preventDefault();
+
+                                var formData = $(this).serialize();
+
+                                $.ajax({
+                                    url: '/NewsLetter/SubscribeMail',
+                                    type: 'POST',
+                                    data: formData,
+                                    success: function (response) {
+                                        $("input[name='Mail']").val('');
+
+                                        Swal.fire({
+                                            title: 'Thành công',
+                                            icon: 'success',
+                                            confirmButtonText: 'Tiếp tục'
+                                        });
+                                    },
+                                    error: function (error) {
+                                        Swal.fire({
+                                            title: 'Thất bại',
+                                            icon: 'error',
+                                            confirmButtonText: 'Tiếp tục'
+                                        });
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
+                    <div class="tech-btm">
+                        @await Component.InvokeAsync("SignedLastBlog")
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>

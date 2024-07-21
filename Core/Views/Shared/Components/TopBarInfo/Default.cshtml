@@ -1,0 +1,48 @@
+﻿
+<div class="col-md-4 top-forms text-center mt-lg-3 mt-md-1 mt-0">
+    @{
+        if (!string.IsNullOrEmpty(@ViewBag.Writer))
+        {
+            <p>Chào mừng @ViewBag.Writer</p>
+            <span class="mx-lg-4 mx-md-2  mx-1">
+                <a href="/Login/LogOut/">
+                    <i class="fas fa-lock"></i> Đăng xuất
+                </a>
+            </span>
+        }
+        else
+        {
+            <span class="mx-lg-4 mx-md-2  mx-1">
+                <a href="/Login/Index/">
+                    <i class="fas fa-lock"></i> Đăng nhập
+                </a>
+            </span>
+            <span>
+                <a href="/Register/Index/">
+                    <i class="far fa-user"></i>Đăng ký
+                </a>
+            </span>
+        }
+    }
+</div>
+
+<div id="topButtons" class="col-md-4 mt-lg-3 mt-md-1 mt-0 terr" style="display:flex; justify-content: end; text-align: center;" >
+    <span>
+        <a style=" background-color: #fff; color:#000; border: 1px solid black; height: 30px; width: 90px; padding: 5px; font-size: 10px; text-align: center; line-height: 19px; margin:5px" href="/Dashboard/Index/" class="btn btn-primary">Danh sách tác giả</a>
+        <a style=" background-color: #fff; color:#000; border: 1px solid black;height: 30px; width: 90px; padding: 5px; font-size: 10px; text-align: center; line-height: 19px; margin:5px" href="/Admin/Admin/Index/" class="btn btn-primary">Danh sách Admin</a>
+    </span>
+    <script>
+        var buttons = document.getElementById('topButtons');
+        function alignButtons() {
+            var screenWidth = window.innerWidth;
+
+            if (screenWidth < 768) {
+                buttons.style.justifyContent = 'center';
+            } else {
+                buttons.style.justifyContent = 'flex-end';
+            }
+        }
+        alignButtons();
+        window.addEventListener('resize', alignButtons);
+    </script>
+</div>

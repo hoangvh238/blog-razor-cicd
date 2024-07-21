@@ -1,0 +1,42 @@
+﻿
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="tech-btm">
+    <p>Blog sẽ được gửi cho bạn qua e-mail. </p>
+	<form id="news"  method="post">
+		<input type="email" placeholder="Email" required="" name="Mail">
+		<input id="btnSubscribe" type="submit" value="ABONE OL">
+	</form>
+
+    <script>
+        $(document).on('submit', '#news', function (e) {
+
+            e.preventDefault();
+
+            var formData = $(this).serialize();
+
+            $.ajax({
+                url: '/NewsLetter/SubscribeMail',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    $("input[name='Mail']").val('');
+
+                    Swal.fire({
+                        title: 'Thành công',
+                        icon: 'success',
+                        confirmButtonText: 'Tiếp tục'
+                    });
+                },
+                error: function (error) {
+                    Swal.fire({
+                        title: 'Thất bại',
+                        icon: 'error',
+                        confirmButtonText: 'Tiếp tục'
+                    });
+                }
+            });
+        });
+    </script>
+</div>

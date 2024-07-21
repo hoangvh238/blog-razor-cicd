@@ -1,0 +1,32 @@
+﻿@model Core.ViewModel.Response
+@{
+    ViewData["Title"] = "ConfirmPass";
+	Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<div class="container">
+	
+	<div class="inner-sec">
+		<div class="login p-5 bg-light mx-auto mw-100">
+			@if (Model.Message == "Mật khẩu của bạn đã được đổi")
+			{
+				<div class="alert alert-success" role="alert">
+
+					@Model.Message, Nhấn Back để trở về trang login
+				</div>
+			}
+			else
+			{
+				<div class="alert alert-success" role="alert">
+
+					Link đổi mật khẩu đã gửi đến email của bạn, vui lòng kiểm tra email để xác nhận.
+				</div>
+			}
+			
+			<div class="d-grid">
+
+				<a asp-action="Index" asp-controller="Login" class="btn btn-warning">Quay lại</a>
+			</div>
+		</div>
+	</div>
+</div>

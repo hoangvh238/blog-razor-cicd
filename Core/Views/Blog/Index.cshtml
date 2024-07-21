@@ -1,0 +1,114 @@
+﻿@using EntityLayer.Concrete
+@model List<Blog>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<section class="main-content-w3layouts-agileits">
+    <div class="container">
+        <h3 class="tittle">Bloglar</h3>
+        <div class="inner-sec">
+            <div class="left-blog-info-w3layouts-agileits text-left">
+                <div class="row" id="blogList">
+                    @foreach(var item in Model)
+                    {
+                        <div class="col-lg-4 card blog-item">
+                            <a href="/Blog/BlogReadAll/@item.BlogID/">
+                                <img src="@item.BlogImage" class="card-img-top img-fluid" alt="">
+                            </a>
+                            <div class="card-body">
+                                <ul class="blog-icons my-4">
+                                    <li>
+                                        <a href="#">
+                                            <i class="far fa-calendar-alt"></i>  @(((DateTime)item.BlogCreatedAt).ToString("dd-MMM-yyyy"))
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-tag"></i> @item.Category.CategoryName
+                                        </a>
+                                    </li>
+                                </ul>
+                                <h5 class="card-title">
+                                    <a href="/Blog/BlogReadAll/@item.BlogID/">@item.BlogTitle</a>
+                                </h5>
+                                <p class="card-text mb-3">
+                                    @{
+                                        string content = item.BlogContent;
+                                        int endIndex = content.Length < 116 ? content.Length : 116;
+
+                                        if (content.Length > endIndex)
+                                        {
+                                            var spaceIndex = content.Substring(0, endIndex).LastIndexOf(" ");
+                                            if (spaceIndex != -1)
+                                            {
+                                                content = content.Substring(0, spaceIndex);
+                                            }
+                                        }
+
+                                        @Html.Raw(content + "...")
+                                    }
+                                </p>
+                                <a href="/Blog/BlogReadAll/@item.BlogID/" class="btn btn-primary read-m">Devamını Oku</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script>
+        // Set up SignalR connection
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/post-hub")
+            .build();
+
+        connection.start().catch(err => console.error("SignalR connection error:", err.toString()));
+
+        connection.on("BlogDataReceived", function(data) {
+            console.log("BlogDataReceived:", data);
+            const blogList = document.getElementById("blogList");
+
+            const categoryName = data.category ? data.category.categoryName : "Uncategorized";
+            const writerName = data.writer ? data.writer.writerName : "Unknown Author";
+
+            const newBlogHtml = `
+                <div class="col-lg-4 card blog-item">
+                    <a href="/Blog/BlogReadAll/${data.blogID}/">
+                        <img src="${data.blogImage}" class="card-img-top img-fluid" alt="">
+                    </a>
+                    <div class="card-body">
+                        <ul class="blog-icons my-4">
+                            <li>
+                                <a href="#">
+                                    <i class="far fa-calendar-alt"></i> ${new Date(data.blogCreatedAt).toLocaleDateString('tr-TR', { day: '2-digit', month: 'short', year: 'numeric' })}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-tag"></i> ${categoryName}
+                                </a>
+                            </li>
+                        </ul>
+                        <h5 class="card-title">
+                            <a href="/Blog/BlogReadAll/${data.blogID}/">${data.blogTitle}</a>
+                        </h5>
+                        <p class="card-text mb-3">
+                            ${data.blogContent.substring(0, 116)}...
+                        </p>
+                        <a href="/Blog/BlogReadAll/${data.blogID}/" class="btn btn-primary read-m">Devamını Oku</a>
+                    </div>
+                </div>
+            `;
+
+            blogList.insertAdjacentHTML('beforeend', newBlogHtml);
+        });
+    </script>
+}
+
