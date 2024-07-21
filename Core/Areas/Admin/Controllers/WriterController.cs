@@ -11,7 +11,7 @@ using System.IO;
 namespace Core.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class WriterController : Controller
     {
         private readonly WriterManager _writerManager = new(new EfWriterRepository());

@@ -34,8 +34,8 @@
                     <h3>
                         <a href="#">@Model.BlogTitle </a>
                     </h3>
-                    <p>@Model.BlogContent</p>
-                    <a href="/Blog/Index/" class="btn btn-primary read-m">Tất cả các blog</a>
+                    @Html.Raw(Model.BlogContent)
+                    <a href="/Blog/Index/" class="btn btn-primary read-m">Tüm Bloglar</a>
                 </div>
                 @await Component.InvokeAsync("CommentListByBlog", new { id = ViewBag.i })
                 @{

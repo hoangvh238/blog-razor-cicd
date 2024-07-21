@@ -11,10 +11,10 @@ namespace Core.Areas.Admin.ViewComponents.Statistic
 
         public IViewComponentResult Invoke()
         {
-            var lastBlog = blogManager.GetLastBlogs().First();
-            string content = lastBlog.BlogContent;
+            var lastBlog = blogManager?.GetLastBlogs()?.First();
+            string content = lastBlog?.BlogContent;
 
-            if (content.Length > 100)
+            if (content?.Length > 100)
             {
                 content = content[..200] + "...";
             }

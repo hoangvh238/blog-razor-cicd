@@ -37,6 +37,7 @@
 	@await Html.PartialAsync("TopSectionPartial")
 	</header>
 @RenderBody()
+    @RenderSection("Scripts", required: false)
 	@await Html.PartialAsync("FooterPartial")
 	<script src="~/coredemotheme/js/jquery-2.2.3.min.js"></script>
 	<script src="~/coredemotheme/js/move-top.js"></script>

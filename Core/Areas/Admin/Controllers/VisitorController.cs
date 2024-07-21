@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Core.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class VisitorController : Controller
     {
         private readonly VisitorManager _visitorManager = new( new EfVisitorRepository());
