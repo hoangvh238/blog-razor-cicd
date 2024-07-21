@@ -15,8 +15,8 @@
                     var value = chartsdata.jsonList;
                     var data = new google.visualization.DataTable();
 
-                    data.addColumn('string', 'rolename');
-                    data.addColumn('number', 'rolecount');
+                    data.addColumn('string', 'Tên vai trò');
+                    data.addColumn('number', 'Số lượng vai trò');
 
                     for (var i = 0; i < value.length; i++) {
                         data.addRow([value[i].rolename, value[i].rolecount]);
@@ -26,7 +26,7 @@
 
                     chart.draw(data,
                         {
-                            title: "Kullanıcılar",
+                            title: "Người dùng",
                             position: "top",
                             fontsize: "16px"
                         });

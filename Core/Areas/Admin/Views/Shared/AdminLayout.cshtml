@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
@@ -9,7 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Admin Paneli</title>
+    <title>Bảng Điều Khiển Quản Trị</title>
     <link rel="shortcut icon" href="~/writer/assets/images/white.png" />
 
     <link href="~/inspinia-gh-pages/css/bootstrap.min.css" rel="stylesheet">
@@ -25,41 +24,41 @@
     <div id="wrapper">
         @await Html.PartialAsync("~/Areas/Admin/Views/Admin/AdminNavbarPartial.cshtml")
         <div id="page-wrapper" class="gray-bg">
-        <div class="row border-bottom">
-        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
-            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
                         <form role="search" class="navbar-form-custom" asp-controller="Admin" asp-action="Search" method="post">
-                <div class="form-group">
-                    <input type="text" placeholder="Aranacak kelime..." class="form-control" name="SearchTerm" id="top-search">
+                            <div class="form-group">
+                                <input type="text" placeholder="Từ tìm kiếm..." class="form-control" name="SearchTerm" id="top-search">
+                            </div>
+                        </form>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <span class="m-r-sm text-muted welcome-message">Chào Mừng Đến Với Bảng Điều Khiển Quản Trị.</span>
+                        </li>
+                        <li>
+                            <a href="/Login/LogOut/">
+                                <i class="fa fa-sign-out"></i> Đăng Xuất
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="wrapper wrapper-content animated fadeInRight">
+                @RenderBody()
+            </div>
+            <div class="footer">
+                <div class="float-right">
+                    Bản Quyền Được Bảo Lưu.
                 </div>
-            </form>
-        </div>
-            <ul class="nav navbar-top-links navbar-right">
-                <li>
-                    <span class="m-r-sm text-muted welcome-message">Admin Paneline Hoşgeldiniz.</span>
-                </li>
-                <li>
-                    <a href="/Login/LogOut/">
-                        <i class="fa fa-sign-out"></i> Çıkış Yap
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        </div>
-        <div class="wrapper wrapper-content animated fadeInRight">
-            @RenderBody()
-        </div>
-        <div class="footer">
-            <div class="float-right">
-                Tüm Hakları Saklıdır.
-            </div>
-            <div>
+                <div>
                     <strong>PureBlog ©</strong> @DateTime.Now.Year
+                </div>
             </div>
         </div>
-     </div>
-   </div>
+    </div>
     <script src="~/inspinia-gh-pages/js/jquery-3.1.1.min.js"></script>
     <script src="~/inspinia-gh-pages/js/popper.min.js"></script>
     <script src="~/inspinia-gh-pages/js/bootstrap.js"></script>
@@ -103,8 +102,8 @@
             var d2 = [[1262304000000, 5], [1264982400000, 200], [1267401600000, 1605], [1270080000000, 6129], [1272672000000, 11643], [1275350400000, 19055], [1277942400000, 30062], [1280620800000, 39197], [1283299200000, 37000], [1285891200000, 27000], [1288569600000, 21000], [1291161600000, 17000]];
 
             var data1 = [
-                { label: "Data 1", data: d1, color: '#17a084' },
-                { label: "Data 2", data: d2, color: '#127e68' }
+                { label: "Dữ liệu 1", data: d1, color: '#17a084' },
+                { label: "Dữ liệu 2", data: d2, color: '#127e68' }
             ];
             $.plot($("#flot-chart1"), data1, {
                 xaxis: {
@@ -137,7 +136,7 @@
             });
 
             var data2 = [
-                { label: "Data 1", data: d1, color: '#19a0a1' }
+                { label: "Dữ liệu 1", data: d1, color: '#19a0a1' }
             ];
             $.plot($("#flot-chart2"), data2, {
                 xaxis: {
@@ -170,8 +169,8 @@
             });
 
             var data3 = [
-                { label: "Data 1", data: d1, color: '#fbbe7b' },
-                { label: "Data 2", data: d2, color: '#f8ac59' }
+                { label: "Dữ liệu 1", data: d1, color: '#fbbe7b' },
+                { label: "Dữ liệu 2", data: d2, color: '#f8ac59' }
             ];
             $.plot($("#flot-chart3"), data3, {
                 xaxis: {
