@@ -160,7 +160,7 @@ namespace CoreDemo.Controllers
             return RedirectToAction("BlogListByWriter");
         }
 
-        [HttpGet]
+		[HttpGet]
         public IActionResult EditBlog(int id)
         {
             var value = _blogManager.GetEntityById(id);

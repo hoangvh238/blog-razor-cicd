@@ -1,18 +1,19 @@
 ﻿using BusinessLayer.Concrete;
 using ClosedXML.Excel;
 using DataAccessLayer.EntityFramework;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
+using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Core.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class ExcelController : Controller
     {
-        private readonly BlogManager _blogManager = new (new EfBlogRepository());
+        private readonly BlogManager _blogManager = new(new EfBlogRepository());
         private readonly WriterManager _writerManager = new(new EfWriterRepository());
         private readonly CommentManager _commentManager = new(new EfCommentRepository());
 
@@ -24,103 +25,162 @@ namespace Core.Areas.Admin.Controllers
         public IActionResult ExportDynamicBlogToExcel()
         {
             using var workbook = new XLWorkbook();
-            var worksheet = workbook.Worksheets.Add("Blog Listesi");
-            worksheet.Cell(1, 1).Value = "Blog ID";
-            worksheet.Cell(1, 2).Value = "Blog Başlığı";
-            worksheet.Cell(1, 3).Value = "Blog İçeriği";
-            worksheet.Cell(1, 4).Value = "Blog Oluşturulma Tarihi";
-            worksheet.Cell(1, 5).Value = "Blog Kategorisi";
-            worksheet.Cell(1, 6).Value = "Blog Yazarı";
+            var worksheet = workbook.Worksheets.Add("Danh Sách Blog");
+            var currentRow = 1;
 
-            int blogRowCount = 2;
+            worksheet.Cell(currentRow, 1).Value = "Mã Blog";
+            worksheet.Cell(currentRow, 2).Value = "Tiêu Đề Blog";
+            worksheet.Cell(currentRow, 3).Value = "Nội Dung Blog";
+            worksheet.Cell(currentRow, 4).Value = "Ngày Tạo Blog";
+            worksheet.Cell(currentRow, 5).Value = "Thể Loại Blog";
+            worksheet.Cell(currentRow, 6).Value = "Tác Giả Blog";
 
             var blogs = _blogManager.GetDetailedBlogList();
 
             foreach (var blog in blogs)
             {
-                worksheet.Cell(blogRowCount, 1).Value = blog.BlogID;
-                worksheet.Cell(blogRowCount, 2).Value = blog.BlogTitle;
-                worksheet.Cell(blogRowCount, 3).Value = blog.BlogContent;
-                worksheet.Cell(blogRowCount, 4).Value = blog.BlogCreatedAt;
-                worksheet.Cell(blogRowCount, 5).Value = blog.Category.CategoryName;
-                worksheet.Cell(blogRowCount, 6).Value = blog.Writer.WriterNameSurname;
-                blogRowCount++;
+                currentRow++;
+                worksheet.Cell(currentRow, 1).Value = blog.BlogID;
+                worksheet.Cell(currentRow, 2).Value = blog.BlogTitle;
+                worksheet.Cell(currentRow, 3).Value = Truncate(blog.BlogContent);
+                worksheet.Cell(currentRow, 4).Value = blog.BlogCreatedAt.ToString("dd-MM-yyyy");
+                worksheet.Cell(currentRow, 5).Value = blog.Category.CategoryName;
+                worksheet.Cell(currentRow, 6).Value = blog.Writer.WriterNameSurname;
             }
+
+            FormatWorksheet(worksheet);
 
             using var stream = new MemoryStream();
             workbook.SaveAs(stream);
             var content = stream.ToArray();
-            var date = DateTime.Now.ToString();
+            var date = DateTime.Now.ToString("yyyyMMddHHmmss");
 
-            return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"Blog Listesi- {date}.xlsx");
+            return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"Danh_Sach_Blog_{date}.xlsx");
         }
 
         public IActionResult ExportDynamicUserToExcel()
         {
             using var workbook = new XLWorkbook();
-            var worksheet = workbook.Worksheets.Add("Kullanıcı Listesi");
-            worksheet.Cell(1, 1).Value = "Kullanıcı ID";
-            worksheet.Cell(1, 2).Value = "Kullanıcı Adı";
-            worksheet.Cell(1, 3).Value = "Kullanıcı Ad-Soyad";
-            worksheet.Cell(1, 4).Value = "Kullanıcı Mail";
-            worksheet.Cell(1, 5).Value = "Kullanıcı Hakkında";
-            worksheet.Cell(1, 6).Value = "Kullanıcı Görsel Yolu";
+            var worksheet = workbook.Worksheets.Add("Danh Sách Người Dùng");
+            var currentRow = 1;
 
-            int writerRowCount = 2;
+            worksheet.Cell(currentRow, 1).Value = "Mã Người Dùng";
+            worksheet.Cell(currentRow, 2).Value = "Tên Người Dùng";
+            worksheet.Cell(currentRow, 3).Value = "Họ Tên";
+            worksheet.Cell(currentRow, 4).Value = "Email";
+            worksheet.Cell(currentRow, 5).Value = "Thông Tin";
+            worksheet.Cell(currentRow, 6).Value = "Đường Dẫn Ảnh";
 
             var writers = _writerManager.GetEntities();
 
             foreach (var writer in writers)
             {
-                worksheet.Cell(writerRowCount, 1).Value = writer.WriterID;
-                worksheet.Cell(writerRowCount, 2).Value = writer.WriterUserName;
-                worksheet.Cell(writerRowCount, 3).Value = writer.WriterNameSurname;
-                worksheet.Cell(writerRowCount, 4).Value = writer.WriterMail;
-                worksheet.Cell(writerRowCount, 5).Value = writer.WriterAbout;
-                worksheet.Cell(writerRowCount, 6).Value = writer.WriterImage;
-                writerRowCount++;
+                currentRow++;
+                worksheet.Cell(currentRow, 1).Value = writer.WriterID;
+                worksheet.Cell(currentRow, 2).Value = writer.WriterUserName;
+                worksheet.Cell(currentRow, 3).Value = writer.WriterNameSurname;
+                worksheet.Cell(currentRow, 4).Value = writer.WriterMail;
+                worksheet.Cell(currentRow, 5).Value = writer.WriterAbout;
+                worksheet.Cell(currentRow, 6).Value = writer.WriterImage;
             }
+
+            FormatWorksheet(worksheet);
 
             using var stream = new MemoryStream();
             workbook.SaveAs(stream);
             var content = stream.ToArray();
-            var date = DateTime.Now.ToString();
+            var date = DateTime.Now.ToString("yyyyMMddHHmmss");
 
-            return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"Kullanıcı Listesi- {date}.xlsx");
+            return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"Danh_Sach_Nguoi_Dung_{date}.xlsx");
         }
 
         public IActionResult ExportDynamicCommentToExcel()
         {
             using var workbook = new XLWorkbook();
-            var worksheet = workbook.Worksheets.Add("Yorum Listesi");
-            worksheet.Cell(1, 1).Value = "Yorum ID";
-            worksheet.Cell(1, 2).Value = "Yorum Kullanıcı Adı";
-            worksheet.Cell(1, 3).Value = "Yorum Başlığı";
-            worksheet.Cell(1, 4).Value = "Yorum İçeriği";
-            worksheet.Cell(1, 5).Value = "Ait Olduğu Blog Başlığı";
-            worksheet.Cell(1, 6).Value = "Ait Olduğu Blog Yazarı";
+            var worksheet = workbook.Worksheets.Add("Danh Sách Bình Luận");
+            var currentRow = 1;
 
-            int commentRowCount = 2;
+            worksheet.Cell(currentRow, 1).Value = "Mã Bình Luận";
+            worksheet.Cell(currentRow, 2).Value = "Tên Người Dùng";
+            worksheet.Cell(currentRow, 3).Value = "Tiêu Đề Bình Luận";
+            worksheet.Cell(currentRow, 4).Value = "Nội Dung Bình Luận";
+            worksheet.Cell(currentRow, 5).Value = "Tiêu Đề Blog";
+            worksheet.Cell(currentRow, 6).Value = "Tác Giả Blog";
 
             var comments = _commentManager.GetCommentsWithBlogAndWriter();
 
             foreach (var comment in comments)
             {
-                worksheet.Cell(commentRowCount, 1).Value = comment.CommentID;
-                worksheet.Cell(commentRowCount, 2).Value = comment.CommentUserName;
-                worksheet.Cell(commentRowCount, 3).Value = comment.CommentTitle;
-                worksheet.Cell(commentRowCount, 4).Value = comment.CommentContent;
-                worksheet.Cell(commentRowCount, 5).Value = comment.Blog.BlogTitle;
-                worksheet.Cell(commentRowCount, 6).Value = comment.Blog.Writer.WriterNameSurname;
-                commentRowCount++;
+                currentRow++;
+                worksheet.Cell(currentRow, 1).Value = comment.CommentID;
+                worksheet.Cell(currentRow, 2).Value = comment.CommentUserName;
+                worksheet.Cell(currentRow, 3).Value = comment.CommentTitle;
+                worksheet.Cell(currentRow, 4).Value = comment.CommentContent;
+                worksheet.Cell(currentRow, 5).Value = comment.Blog.BlogTitle;
+                worksheet.Cell(currentRow, 6).Value = comment.Blog.Writer.WriterNameSurname;
             }
+
+            FormatWorksheet(worksheet);
 
             using var stream = new MemoryStream();
             workbook.SaveAs(stream);
             var content = stream.ToArray();
-            var date = DateTime.Now.ToString();
+            var date = DateTime.Now.ToString("yyyyMMddHHmmss");
 
-            return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"Yorum Listesi- {date}.xlsx");
+            return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"Danh_Sach_Binh_Luan_{date}.xlsx");
         }
-    }
+
+		private void FormatWorksheet(IXLWorksheet worksheet)
+		{
+			// Adjust column widths
+			worksheet.Columns().AdjustToContents();
+
+			// Set header style
+			var headerRow = worksheet.Row(1);
+			headerRow.Style.Font.Bold = true;
+			headerRow.Style.Fill.BackgroundColor = XLColor.LightGray;
+			headerRow.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+			headerRow.Style.Font.FontSize = 12;
+			headerRow.Style.Font.FontColor = XLColor.DarkBlue;
+
+			// Set borders for the header row
+			headerRow.Style.Border.OutsideBorder = XLBorderStyleValues.Thick;
+			headerRow.Style.Border.OutsideBorderColor = XLColor.DarkBlue;
+
+			// Apply alternating row colors
+			bool isEvenRow = false;
+			foreach (var row in worksheet.RowsUsed().Skip(1))
+			{
+				isEvenRow = !isEvenRow;
+				if (isEvenRow)
+				{
+					row.Style.Fill.BackgroundColor = XLColor.AliceBlue;
+				}
+				else
+				{
+					row.Style.Fill.BackgroundColor = XLColor.White;
+				}
+
+				// Set border style for all rows
+				row.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+				row.Style.Border.OutsideBorderColor = XLColor.LightGray;
+			}
+
+			// Center align all columns
+			worksheet.Columns().Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+
+			// Set borders for the entire used range
+			worksheet.RangeUsed().Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+			worksheet.RangeUsed().Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+			worksheet.RangeUsed().Style.Border.OutsideBorderColor = XLColor.LightGray;
+			worksheet.RangeUsed().Style.Border.InsideBorderColor = XLColor.LightGray;
+		}
+
+		private string Truncate(string value, int maxLength = 32767)
+		{
+			if (string.IsNullOrEmpty(value)) return value;
+			return value.Length <= maxLength ? value : value.Substring(0, maxLength);
+		}
+	}
 }

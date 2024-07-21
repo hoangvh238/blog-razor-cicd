@@ -1,89 +1,90 @@
 ;(function($){
 /**
- * jqGrid Turkish Translation
- * Erhan Gündoğan (erhan@trposta.net)
+ * jqGrid Phiên dịch tiếng Việt
+ * Người dịch: [Tên của bạn]
+ * Email: [Email của bạn]
  * http://blog.zakkum.com
- * Dual licensed under the MIT and GPL licenses:
+ * Giấy phép: MIT và GPL
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
 **/
 $.jgrid = $.jgrid || {};
 $.extend($.jgrid,{
 	defaults : {
-		recordtext: "{0}-{1} listeleniyor. Toplam:{2}",
-	    emptyrecords: "Kayıt bulunamadı",
-		loadtext: "Yükleniyor...",
-		pgtext : "{0}/{1}. Sayfa"
+		recordtext: "{0}-{1} đang được liệt kê. Tổng cộng: {2}",
+	    emptyrecords: "Không tìm thấy bản ghi",
+		loadtext: "Đang tải...",
+		pgtext : "Trang {0} / {1}"
 	},
 	search : {
-	    caption: "Arama...",
-	    Find: "Bul",
-	    Reset: "Temizle",	    
-	    odata: [{ oper:'eq', text:"eşit"},{ oper:'ne', text:"eşit değil"},{ oper:'lt', text:"daha az"},{ oper:'le', text:"daha az veya eşit"},{ oper:'gt', text:"daha fazla"},{ oper:'ge', text:"daha fazla veya eşit"},{ oper:'bw', text:"ile başlayan"},{ oper:'bn', text:"ile başlamayan"},{ oper:'in', text:"içinde"},{ oper:'ni', text:"içinde değil"},{ oper:'ew', text:"ile biten"},{ oper:'en', text:"ile bitmeyen"},{ oper:'cn', text:"içeren"},{ oper:'nc', text:"içermeyen"},{ oper:'nu', text:'is null'},{ oper:'nn', text:'is not null'}],
-	    groupOps: [	{ op: "VE", text: "tüm" },	{ op: "VEYA",  text: "herhangi" }],
-		operandTitle : "Click to select search operation.",
-		resetTitle : "Reset Search Value"
+	    caption: "Tìm kiếm...",
+	    Find: "Tìm",
+	    Reset: "Đặt lại",	    
+	    odata: [{ oper:'eq', text:"bằng"},{ oper:'ne', text:"không bằng"},{ oper:'lt', text:"nhỏ hơn"},{ oper:'le', text:"nhỏ hơn hoặc bằng"},{ oper:'gt', text:"lớn hơn"},{ oper:'ge', text:"lớn hơn hoặc bằng"},{ oper:'bw', text:"bắt đầu bằng"},{ oper:'bn', text:"không bắt đầu bằng"},{ oper:'in', text:"trong"},{ oper:'ni', text:"không trong"},{ oper:'ew', text:"kết thúc bằng"},{ oper:'en', text:"không kết thúc bằng"},{ oper:'cn', text:"chứa"},{ oper:'nc', text:"không chứa"},{ oper:'nu', text:'là null'},{ oper:'nn', text:'không phải null'}],
+	    groupOps: [	{ op: "VÀ", text: "tất cả" },	{ op: "HOẶC",  text: "bất kỳ" }],
+		operandTitle : "Nhấp để chọn thao tác tìm kiếm.",
+		resetTitle : "Đặt lại giá trị tìm kiếm"
 	},
 	edit : {
-	    addCaption: "Kayıt Ekle",
-	    editCaption: "Kayıt Düzenle",
-	    bSubmit: "Gönder",
-	    bCancel: "İptal",
-		bClose: "Kapat",
-		saveData: "Veriler değişti! Kayıt edilsin mi?",
-		bYes : "Evet",
-		bNo : "Hayıt",
-		bExit : "İptal",
+	    addCaption: "Thêm bản ghi",
+	    editCaption: "Chỉnh sửa bản ghi",
+	    bSubmit: "Gửi",
+	    bCancel: "Hủy",
+		bClose: "Đóng",
+		saveData: "Dữ liệu đã thay đổi! Có muốn lưu không?",
+		bYes : "Có",
+		bNo : "Không",
+		bExit : "Hủy",
 	    msg: {
-	        required:"Alan gerekli",
-	        number:"Lütfen bir numara giriniz",
-	        minValue:"girilen değer daha büyük ya da buna eşit olmalıdır",
-	        maxValue:"girilen değer daha küçük ya da buna eşit olmalıdır",
-	        email: "geçerli bir e-posta adresi değildir",
-	        integer: "Lütfen bir tamsayı giriniz",
-			url: "Geçerli bir URL değil. ('http://' or 'https://') ön eki gerekli.",
-			nodefined : " is not defined!",
-			novalue : " return value is required!",
-			customarray : "Custom function should return array!",
-			customfcheck : "Custom function should be present in case of custom checking!"
+	        required:"Trường này là bắt buộc",
+	        number:"Vui lòng nhập một số",
+	        minValue:"Giá trị nhập vào phải lớn hơn hoặc bằng",
+	        maxValue:"Giá trị nhập vào phải nhỏ hơn hoặc bằng",
+	        email: "Đây không phải là một địa chỉ email hợp lệ",
+	        integer: "Vui lòng nhập một số nguyên",
+			url: "Đây không phải là một URL hợp lệ. Cần có tiền tố ('http://' hoặc 'https://')",
+			nodefined : " không được định nghĩa!",
+			novalue : " giá trị trả về là bắt buộc!",
+			customarray : "Hàm tùy chỉnh phải trả về một mảng!",
+			customfcheck : "Hàm tùy chỉnh phải có trong trường hợp kiểm tra tùy chỉnh!"
 		}
 	},
 	view : {
-	    caption: "Kayıt Görüntüle",
-	    bClose: "Kapat"
+	    caption: "Xem bản ghi",
+	    bClose: "Đóng"
 	},
 	del : {
-	    caption: "Sil",
-	    msg: "Seçilen kayıtlar silinsin mi?",
-	    bSubmit: "Sil",
-	    bCancel: "İptal"
+	    caption: "Xóa",
+	    msg: "Có muốn xóa các bản ghi đã chọn không?",
+	    bSubmit: "Xóa",
+	    bCancel: "Hủy"
 	},
 	nav : {
 		edittext: " ",
-	    edittitle: "Seçili satırı düzenle",
+	    edittitle: "Chỉnh sửa hàng đã chọn",
 		addtext:" ",
-	    addtitle: "Yeni satır ekle",
+	    addtitle: "Thêm hàng mới",
 	    deltext: " ",
-	    deltitle: "Seçili satırı sil",
+	    deltitle: "Xóa hàng đã chọn",
 	    searchtext: " ",
-	    searchtitle: "Kayıtları bul",
+	    searchtitle: "Tìm bản ghi",
 	    refreshtext: "",
-	    refreshtitle: "Tabloyu yenile",
-	    alertcap: "Uyarı",
-	    alerttext: "Lütfen bir satır seçiniz",
+	    refreshtitle: "Làm mới bảng",
+	    alertcap: "Cảnh báo",
+	    alerttext: "Vui lòng chọn một hàng",
 		viewtext: "",
-		viewtitle: "Seçilen satırı görüntüle"
+		viewtitle: "Xem hàng đã chọn"
 	},
 	col : {
-	    caption: "Sütunları göster/gizle",
-	    bSubmit: "Gönder",
-	    bCancel: "İptal"	
+	    caption: "Hiển thị/Ẩn cột",
+	    bSubmit: "Gửi",
+	    bCancel: "Hủy"	
 	},
 	errors : {
-		errcap : "Hata",
-		nourl : "Bir url yapılandırılmamış",
-		norecords: "İşlem yapılacak bir kayıt yok",
-	    model : "colNames uzunluğu <> colModel!"
+		errcap : "Lỗi",
+		nourl : "URL chưa được cấu hình",
+		norecords: "Không có bản ghi nào để thao tác",
+	    model : "colNames độ dài <> colModel!"
 	},
 	formatter : {
 		integer : {thousandsSeparator: " ", defaultValue: '0'},
@@ -91,14 +92,14 @@ $.extend($.jgrid,{
 		currency : {decimalSeparator:".", thousandsSeparator: " ", decimalPlaces: 2, prefix: "", suffix:"", defaultValue: '0.00'},
 		date : {
 			dayNames:   [
-				"Paz", "Pts", "Sal", "Çar", "Per", "Cum", "Cts",
-				"Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"
+				"Cn", "T2", "T3", "T4", "T5", "T6", "T7",
+				"Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"
 			],
 			monthNames: [
-				"Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara",
-				"Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"
+				"Th1", "Th2", "Th3", "Th4", "Th5", "Th6", "Th7", "Th8", "Th9", "Th10", "Th11", "Th12",
+				"Tháng Một", "Tháng Hai", "Tháng Ba", "Tháng Tư", "Tháng Năm", "Tháng Sáu", "Tháng Bảy", "Tháng Tám", "Tháng Chín", "Tháng Mười", "Tháng Mười Một", "Tháng Mười Hai"
 			],
-			AmPm : ["am","pm","AM","PM"],
+			AmPm : ["SA","CH","SA","CH"],
 			S: function (j) {return j < 11 || j > 13 ? ['st', 'nd', 'rd', 'th'][Math.min((j - 1) % 10, 3)] : 'th'},
 			srcformat: 'Y-m-d',
 			newformat: 'd/m/Y',

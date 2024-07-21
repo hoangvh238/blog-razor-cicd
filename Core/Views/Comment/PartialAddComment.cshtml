@@ -7,8 +7,8 @@
 	<div class="comment-bottom">
 		<form id="comment" action="/Blog/BlogReadAll/" method="post">
             <input type="hidden" name="BlogID" value="@Model"/>
-			<input class="form-control" type="text" name="CommentUserName" placeholder="Ad Soyad" required="">
-			<input class="form-control" type="text" name="CommentTitle" placeholder="Konu" required="">
+			<input class="form-control" type="text" name="CommentUserName" placeholder="Tên của bạn" required="">
+			<input class="form-control" type="text" name="CommentTitle" placeholder="Tên người dùng" required="">
             <textarea class="form-control" name="CommentContent" placeholder="Bình luận của bạn..." required=""></textarea>
             <button type="submit" class="btn btn-primary submit">Bình luận</button>
 		</form>

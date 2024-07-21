@@ -42,7 +42,7 @@
                     </td>
                     <td>
                         <button class="btn btn-danger" style="width:60px; padding: 8px 10px; font-size: 14px; text-align: center;"
-                                onclick="confirmDelete('@item.BlogID')">Sil
+                                onclick="confirmDelete('@item.BlogID')">Xóa
                         </button>
                     </td>
                     <td><a href="/Blog/EditBlog/@item.BlogID" class="btn btn-warning" style="padding: 8px 10px; font-size: 14px; text-align: center;">Edit</a></td>
@@ -59,11 +59,11 @@ class="d-flex justify-content-center">
 <script>
     function confirmDelete(blogId) {
         Swal.fire({
-            title: 'Sil?',
-            text: 'Blogu silmek istediğinize emin misiniz?',
+            title: 'Xóa bài?',
+            text: 'Bạn có chắc chắn muốn xóa blog không?',
             showDenyButton: true,
-            confirmButtonText: 'Evet',
-            denyButtonText: 'Hayır',
+            confirmButtonText: 'Có',
+            denyButtonText: 'Không',
             customClass: {
                 actions: 'my-actions',
                 cancelButton: 'order-1 right-gap',

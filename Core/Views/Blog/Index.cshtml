@@ -6,23 +6,176 @@
     Layout = "~/Views/Shared/UserLayout.cshtml";
 }
 
+<style>
+    .max-height-100 {
+        height: 250px;
+        object-fit: cover;
+    }
+
+    .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 10px;
+    }
+
+    .blog-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: transform 0.3s;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        border: none;
+    }
+
+    .blog-item:hover {
+        transform: translateY(-10px);
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        padding: 15px;
+    }
+
+    .blog-icons {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 15px 0;
+        display: flex;
+        gap: 10px;
+        color: #6c757d;
+    }
+
+    .blog-icons li {
+        display: flex;
+        align-items: center;
+    }
+
+    .blog-icons li i {
+        margin-right: 5px;
+    }
+
+    .card-title {
+        font-size: 24px;
+        font-weight: 600;
+        margin: 10px 0;
+        color: #343a40;
+    }
+
+    .card-title a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .card-title a:hover {
+        color: #007bff;
+    }
+
+    .card-text {
+        color: #6c757d;
+        font-size: 16px;
+        flex-grow: 1;
+    }
+
+    .read-m {
+        background-color: #007bff;
+        border: none;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+        align-self: flex-start;
+    }
+
+    .read-m:hover {
+        background-color: #0056b3;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropbtn {
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+        padding: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .dropbtn:hover {
+        background-color: black;
+        color: white;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: white;
+        min-width: 160px;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content-hori a {
+        color: black;
+        padding: 2px 8px;
+        text-decoration: none;
+        display: block;
+        border-bottom: 1px solid black;
+    }
+
+    .dropdown-content-hori a:hover {
+        background-color: black;
+        color: white;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown-content-horizontal {
+        display : flex;
+        gap : 14px;
+    }
+</style>
+
 <section class="main-content-w3layouts-agileits">
     <div class="container">
-        <h3 class="tittle">Bloglar</h3>
+        <h3 class="tittle">Blog</h3>
+
+        <!-- Dropdown filter start -->
+        <div class="dropdown">
+           
+            <div class="dropdown-content-horizontal">
+                 <button class="dropbtn dropdown-content-hori"> <a href="#" onclick="filterCategory('all')">Tất cả</a></button>
+               
+                @foreach (var category in Model.Select(m => m.Category.CategoryName).Distinct())
+                {
+					 <button class="dropbtn dropdown-content-hori">    <a href="#" onclick="filterCategory('@category')">@category</a></button>
+                
+                }
+            </div>
+        </div>
+        <!-- Dropdown filter end -->
+
         <div class="inner-sec">
             <div class="left-blog-info-w3layouts-agileits text-left">
-                <div class="row" id="blogList">
-                    @foreach(var item in Model)
+                <div class="blog-grid" id="blogList">
+                    @foreach (var item in Model)
                     {
-                        <div class="col-lg-4 card blog-item">
+                        <div class="card blog-item" data-category="@item.Category.CategoryName">
                             <a href="/Blog/BlogReadAll/@item.BlogID/">
-                                <img src="@item.BlogImage" class="card-img-top img-fluid" alt="">
+                                <img src="@item.BlogImage" class="card-img-top img-fluid max-height-100" alt="">
                             </a>
                             <div class="card-body">
                                 <ul class="blog-icons my-4">
                                     <li>
                                         <a href="#">
-                                            <i class="far fa-calendar-alt"></i>  @(((DateTime)item.BlogCreatedAt).ToString("dd-MMM-yyyy"))
+                                            <i class="far fa-calendar-alt"></i> @(((DateTime)item.BlogCreatedAt).ToString("dd-MMM-yyyy"))
                                         </a>
                                     </li>
                                     <li>
@@ -34,24 +187,7 @@
                                 <h5 class="card-title">
                                     <a href="/Blog/BlogReadAll/@item.BlogID/">@item.BlogTitle</a>
                                 </h5>
-                                <p class="card-text mb-3">
-                                    @{
-                                        string content = item.BlogContent;
-                                        int endIndex = content.Length < 116 ? content.Length : 116;
-
-                                        if (content.Length > endIndex)
-                                        {
-                                            var spaceIndex = content.Substring(0, endIndex).LastIndexOf(" ");
-                                            if (spaceIndex != -1)
-                                            {
-                                                content = content.Substring(0, spaceIndex);
-                                            }
-                                        }
-
-                                        @Html.Raw(content + "...")
-                                    }
-                                </p>
-                                <a href="/Blog/BlogReadAll/@item.BlogID/" class="btn btn-primary read-m">Devamını Oku</a>
+                                <a href="/Blog/BlogReadAll/@item.BlogID/" class="btn btn-primary read-m">Đọc ngay</a>
                             </div>
                         </div>
                     }
@@ -60,6 +196,7 @@
         </div>
     </div>
 </section>
+
 @section Scripts {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
@@ -79,9 +216,9 @@
             const writerName = data.writer ? data.writer.writerName : "Unknown Author";
 
             const newBlogHtml = `
-                <div class="col-lg-4 card blog-item">
+                <div class="card blog-item" data-category="${categoryName}">
                     <a href="/Blog/BlogReadAll/${data.blogID}/">
-                        <img src="${data.blogImage}" class="card-img-top img-fluid" alt="">
+                        <img src="${data.blogImage}" class="card-img-top img-fluid max-height-100" alt="">
                     </a>
                     <div class="card-body">
                         <ul class="blog-icons my-4">
@@ -99,16 +236,24 @@
                         <h5 class="card-title">
                             <a href="/Blog/BlogReadAll/${data.blogID}/">${data.blogTitle}</a>
                         </h5>
-                        <p class="card-text mb-3">
-                            ${data.blogContent.substring(0, 116)}...
-                        </p>
-                        <a href="/Blog/BlogReadAll/${data.blogID}/" class="btn btn-primary read-m">Devamını Oku</a>
+                        <a href="/Blog/BlogReadAll/${data.blogID}/" class="btn btn-primary read-m">Đọc ngay</a>
                     </div>
                 </div>
             `;
 
             blogList.insertAdjacentHTML('beforeend', newBlogHtml);
         });
+
+        // Filter function
+        function filterCategory(category) {
+            const blogItems = document.querySelectorAll('.blog-item');
+            blogItems.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
     </script>
 }
-
