@@ -39,7 +39,7 @@
                     <td>@item.MessageDate</td>
                     <td>@{ if (item.SenderUser.WriterID == item.ReceiverUser.WriterID)
                             {
-                                <span>@item.SenderUser.WriterNameSurname (Ben)</span>
+                                <span>@item.SenderUser.WriterNameSurname (Tôi)</span>
                             }
                             else
                             {
@@ -50,7 +50,7 @@
                     <td>
                         <button class="btn btn-danger" style="width:60px; padding: 8px 10px; font-size: 14px; text-align: center;"
                                 onclick="confirmDelete('@item.MessageID')">
-                            Sil
+                            Xóa
                         </button>
                     </td>
                 </tr>
@@ -66,11 +66,11 @@
 <script>
     function confirmDelete(messageId) {
         Swal.fire({
-            title: 'Sil?',
-            text: 'Mesajı silmek istediğinize emin misiniz?',
+            title: 'Xóa tin nhắn?',
+            text: 'Bạn có chắc chắn muốn xóa tin nhắn?',
             showDenyButton: true,
-            confirmButtonText: 'Evet',
-            denyButtonText: 'Hayır',
+            confirmButtonText: 'Đúng',
+            denyButtonText: 'Không',
             customClass: {
                 actions: 'my-actions',
                 cancelButton: 'order-1 right-gap',

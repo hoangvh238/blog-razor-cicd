@@ -12,7 +12,7 @@ using System.Linq;
 namespace Core.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class ChartController : Controller
     {
         private readonly UserManager<User> _userManager;

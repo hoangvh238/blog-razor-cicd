@@ -3,19 +3,19 @@ using FluentValidation;
 
 namespace BusinessLayer.ValidationRules
 {
-    public class WriterValidator : AbstractValidator<Writer>
-    {
-        public WriterValidator()
-        {
-            RuleFor(x => x.WriterNameSurname).NotEmpty().WithMessage("Ad soyad boş geçilemez");
-            RuleFor(x => x.WriterNameSurname).MinimumLength(2).WithMessage("Lütfen en az 2 karakter girişi yapın");
-            RuleFor(x => x.WriterNameSurname).MaximumLength(50).WithMessage("Lütfen 50 karakterden fazla değer girişi yapmayın");
-            RuleFor(x => x.WriterUserName).NotEmpty().WithMessage("Kullanıcı adı boş geçilemez");
-            RuleFor(x => x.WriterMail).NotEmpty().WithMessage("Mail adresi boş geçilemez");
-            RuleFor(x => x.WriterPassword).NotEmpty().WithMessage("Şifre boş geçilemez");
-            RuleFor(x => x.WriterPassword).MinimumLength(8).WithMessage("Şifre en az 8 karakter olmalı");
-            RuleFor(x => x.WriterAbout).NotEmpty().WithMessage("Hakkımda kısmı boş geçilemez");
-            RuleFor(x => x.WriterAbout).MinimumLength(10).WithMessage("Hakkımda kısmı en az 10 karakter olmalı");
-        }
-    }
+	public class WriterValidator : AbstractValidator<Writer>
+	{
+		public WriterValidator()
+		{
+			RuleFor(x => x.WriterNameSurname).NotEmpty().WithMessage("Họ tên không được để trống");
+			RuleFor(x => x.WriterNameSurname).MinimumLength(2).WithMessage("Vui lòng nhập ít nhất 2 ký tự");
+			RuleFor(x => x.WriterNameSurname).MaximumLength(50).WithMessage("Vui lòng không nhập quá 50 ký tự");
+			RuleFor(x => x.WriterUserName).NotEmpty().WithMessage("Tên người dùng không được để trống");
+			RuleFor(x => x.WriterMail).NotEmpty().WithMessage("Địa chỉ email không được để trống");
+			RuleFor(x => x.WriterPassword).NotEmpty().WithMessage("Mật khẩu không được để trống");
+			RuleFor(x => x.WriterPassword).MinimumLength(8).WithMessage("Mật khẩu phải có ít nhất 8 ký tự");
+			RuleFor(x => x.WriterAbout).NotEmpty().WithMessage("Phần giới thiệu không được để trống");
+			RuleFor(x => x.WriterAbout).MinimumLength(10).WithMessage("Phần giới thiệu phải có ít nhất 10 ký tự");
+		}
+	}
 }

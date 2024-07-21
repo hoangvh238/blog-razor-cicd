@@ -20,9 +20,36 @@
     <h4>Categori</h4>
     @Html.DropDownListFor(x => x.CategoryID, (List<SelectListItem>)ViewBag.categories, new { @class = "form-control" })
     <br />
-    <h4>Contents</h4>
+    <h4>Nội dung</h4>
     @Html.TextAreaFor(x => x.BlogContent, 10, 3, new { @class = "form-control" })
-    <br />
+    @Html.ValidationMessageFor(x => x.BlogContent, "", new { @class = "text-danger" })
     <div class="d-flex justify-content-center"><button class="btn btn-dark" style="width: 220px">Edit</button></div>
 }
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
+
+<!-- Initialize the editor. -->
+<script>
+    new FroalaEditor('textarea', {
+        events: {
+            "image.beforeUpload": function(files) {
+                var editor = this;
+                if (files.length) {
+                    // Create a File Reader.
+                    var reader = new FileReader();
+                    // Set the reader to insert images when they are loaded.
+                    reader.onload = function(e) {
+                        var result = e.target.result;
+                        editor.image.insert(result, null, null, editor.image.get());
+                    };
+                    // Read image as base64.
+                    reader.readAsDataURL(files[0]);
+                }
+                editor.popups.hideAll();
+                // Stop default upload chain.
+                return false;
+            }
+        }
+    });
+</script>
 

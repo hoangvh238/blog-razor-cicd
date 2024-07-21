@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Core.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
         private readonly RoleManager<Role> _roleManager;

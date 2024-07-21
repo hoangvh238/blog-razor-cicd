@@ -755,3 +755,12 @@ https://templatemo.com/tm-587-tiya-golf-club
   }
 }
 
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
