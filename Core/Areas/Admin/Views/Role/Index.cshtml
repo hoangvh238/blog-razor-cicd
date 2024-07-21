@@ -11,17 +11,16 @@
         <div class="col-lg-12">
             <div class="ibox ">
                 <div class="ibox-title">
-                    <h3>Roller  </h3>
+                    <h3>Vai Trò</h3>
                 </div>
                 <div class="ibox-content table-responsive">
                     <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Rol</th>
-                                <th style="text-align:center">Sil</th>
-                                <th style="text-align:center">Düzenle</th>
-
+                                <th>Vai Trò</th>
+                                <th style="text-align:center">Xóa</th>
+                                <th style="text-align:center">Chỉnh Sửa</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,11 +32,11 @@
                                     <td style="vertical-align:middle;" class="text-center">
                                         <button class="btn btn-danger" style="width:50px; padding: 8px 10px; font-size: 14px; text-align: center;"
                                                 onclick="confirmDelete(@item.Id)">
-                                            Sil
+                                            Xóa
                                         </button>
                                     </td>
                                     <td style="text-align:center; vertical-align:middle;">
-                                        <a href="/Admin/Role/EditRole/@item.Id" class="btn btn-outline btn-success">Düzenle</a>
+                                        <a href="/Admin/Role/EditRole/@item.Id" class="btn btn-outline btn-success">Chỉnh Sửa</a>
                                     </td>
                                 </tr>
                             }
@@ -46,8 +45,8 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center">
-                <a href="/Admin/Role/AddRole/" class="btn btn-primary" style="width:150px; margin-right: 5px;">Rol Ekle</a>
-                <a href="/Admin/Role/UserRoleList/" class="btn btn-success" style="width:150px; margin-left: 5px;">Rol Ata</a>
+                <a href="/Admin/Role/AddRole/" class="btn btn-primary" style="width:150px; margin-right: 5px;">Thêm Vai Trò</a>
+                <a href="/Admin/Role/UserRoleList/" class="btn btn-success" style="width:150px; margin-left: 5px;">Gán Vai Trò</a>
             </div>
         </div>
     </div>
@@ -55,11 +54,11 @@
 <script>
     function confirmDelete(roleId) {
         Swal.fire({
-            title: 'Sil?',
-            text: 'Rolü silmek istediğinize emin misiniz?',
+            title: 'Xóa?',
+            text: 'Bạn có chắc chắn muốn xóa vai trò này không?',
             showDenyButton: true,
-            confirmButtonText: 'Evet',
-            denyButtonText: 'Hayır',
+            confirmButtonText: 'Có',
+            denyButtonText: 'Không',
             customClass: {
                 actions: 'my-actions',
                 cancelButton: 'order-1 right-gap',
@@ -73,4 +72,3 @@
         })
     }
 </script>
-

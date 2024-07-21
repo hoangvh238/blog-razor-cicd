@@ -3,19 +3,19 @@
     Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
 }
 
-<h1>Yazarlar</h1>
+<h1>Nhà Văn</h1>
 <br />
-<div style="margin-bottom: 5px" id="writerById">ID ile Yazar getir</div>
+<div style="margin-bottom: 5px" id="writerById">Lấy Nhà Văn Theo ID</div>
 <div class="row">
     <div class="col col-lg-10">
-        <input id="writerId" type="text" placeholder="Yazar ID giriniz" class="form-control" />
+        <input id="writerId" type="text" placeholder="Nhập ID Nhà Văn" class="form-control" />
     </div>
     <div class="col col-lg-2">
-        <button id="btnGetById" class="btn btn-outline-success" type="button">ID ile Yazar Ara</button>
+        <button id="btnGetById" class="btn btn-outline-success" type="button">Tìm Nhà Văn Theo ID</button>
     </div>
 </div>
 <br />
-<div id="writerList">Yazarlar</div>
+<div id="writerList">Nhà Văn</div>
 
 @section scripts {
     <script>
@@ -27,23 +27,23 @@
                 url: "/Admin/Writer/WriterList",
                 success: function (func) {
                     let writer = jQuery.parseJSON(func);
-                    let tableHtml = "<div class=table-responsive><table class=table><tr><th>ID</th><th>Kullanıcı Adı</th><th>Ad - Soyad</th><th>Hakkında</th><th>Görsel Yolu</th><th>E-mail</th><th>Durum</th><th>Aktive Et</th><th>Deaktive Et</th><th>Sil</th></tr>";
+                    let tableHtml = "<div class=table-responsive><table class=table><tr><th>ID</th><th>Tên Người Dùng</th><th>Họ và Tên</th><th>Giới Thiệu</th><th>Đường Dẫn Ảnh</th><th>Email</th><th>Tình Trạng</th><th>Kích Hoạt</th><th>Vô Hiệu Hóa</th><th>Xóa</th></tr>";
 
                     $.each(writer, (index, value) => {
-                        let statusText = value.WriterStatus ? 'Aktif' : 'Pasif';
+                        let statusText = value.WriterStatus ? 'Hoạt Động' : 'Không Hoạt Động';
                         tableHtml += `<tr><td>${value.WriterID}</td><td>${value.WriterUserName}</td><td>${value.WriterNameSurname}</td><td>${value.WriterAbout}</td><td>${value.WriterImage}</td><td>${value.WriterMail}</td><td>${statusText}</td>
-                                <td style="vertical-align:middle">
-                                <button onclick="activate('${value.WriterID}')" class="btn btn-primary dim" type="button"><i class="fa fa-check"></i></button>
-                                 </td>
-                                 <td style="vertical-align:middle">
-                                 <button onclick="deactivate('${value.WriterID}')" class="btn btn-warning dim"  type="button"><i class="fa fa-warning"></i></button>
-                                 </td>
-                                 <td style="vertical-align:middle">
-                                 <button class="btn btn-danger dim" type="button"
-                                  onclick="confirmDelete('${value.WriterID}')">
-                                  <i class="fa fa-trash-o"></i>
-                                  </button>
-                                  </td></tr>`;
+                                        <td style="vertical-align:middle">
+                                        <button onclick="activate('${value.WriterID}')" class="btn btn-primary dim" type="button"><i class="fa fa-check"></i></button>
+                                         </td>
+                                         <td style="vertical-align:middle">
+                                         <button onclick="deactivate('${value.WriterID}')" class="btn btn-warning dim"  type="button"><i class="fa fa-warning"></i></button>
+                                         </td>
+                                         <td style="vertical-align:middle">
+                                         <button class="btn btn-danger dim" type="button"
+                                          onclick="confirmDelete('${value.WriterID}')">
+                                          <i class="fa fa-trash-o"></i>
+                                          </button>
+                                          </td></tr>`;
                     });
 
                     tableHtml += "</table></div>";
@@ -66,21 +66,21 @@
                     data: { writerId: id },
                     success: function (func) {
                         let writer = jQuery.parseJSON(func);
-                        let statusText = writer.WriterStatus ? 'Aktif' : 'Pasif';
+                        let statusText = writer.WriterStatus ? 'Hoạt Động' : 'Không Hoạt Động';
 
-                        let value = `<div class=table-responsive><table class=table><tr><th>ID</th><th>Kullanıcı Adı</th><th>Ad - Soyad</th><th>Hakkında</th><th>Görsel Yolu</th><th>E-mail</th><th>Durum</th><th>Aktive Et</th><th>Deaktive Et</th><th>Sil</th></tr><tr><td>${writer.WriterID}</td><td>${writer.WriterUserName}</td><td>${writer.WriterNameSurname}</td><td>${writer.WriterAbout}</td><td>${writer.WriterImage}</td><td>${writer.WriterMail}</td><td>${statusText}</td>
+                        let value = `<div class=table-responsive><table class=table><tr><th>ID</th><th>Tên Người Dùng</th><th>Họ và Tên</th><th>Giới Thiệu</th><th>Đường Dẫn Ảnh</th><th>Email</th><th>Tình Trạng</th><th>Kích Hoạt</th><th>Vô Hiệu Hóa</th><th>Xóa</th></tr><tr><td>${writer.WriterID}</td><td>${writer.WriterUserName}</td><td>${writer.WriterNameSurname}</td><td>${writer.WriterAbout}</td><td>${writer.WriterImage}</td><td>${writer.WriterMail}</td><td>${statusText}</td>
+                                                         <td style="vertical-align:middle">
+                                                        <button onclick="activate('${writer.WriterID}')" class="btn btn-primary dim" type="button"><i class="fa fa-check"></i></button>
+                                                 </td>
                                                  <td style="vertical-align:middle">
-                                                <button onclick="activate('${writer.WriterID}')" class="btn btn-primary dim" type="button"><i class="fa fa-check"></i></button>
-                                         </td>
-                                         <td style="vertical-align:middle">
-                                                 <button onclick="deactivate('${writer.WriterID}')" class="btn btn-warning dim"  type="button"><i class="fa fa-warning"></i></button>
-                                         </td>
-                                         <td style="vertical-align:middle">
-                                         <button class="btn btn-danger dim" type="button"
-                                                  onclick="confirmDelete('${writer.WriterID}')">
-                                          <i class="fa fa-trash-o"></i>
-                                          </button>
-                                          </td></tr>`;
+                                                         <button onclick="deactivate('${writer.WriterID}')" class="btn btn-warning dim"  type="button"><i class="fa fa-warning"></i></button>
+                                                 </td>
+                                                 <td style="vertical-align:middle">
+                                                 <button class="btn btn-danger dim" type="button"
+                                                          onclick="confirmDelete('${writer.WriterID}')">
+                                                  <i class="fa fa-trash-o"></i>
+                                                  </button>
+                                                  </td></tr>`;
                         value += "</table></div>";
 
                         $("#writerById").html(value);
@@ -89,14 +89,13 @@
             });
         });
 
-
         function confirmDelete(userId) {
             Swal.fire({
-                title: 'Sil?',
-                text: 'Kullanıcıyı silmek istediğinize emin misiniz?',
+                title: 'Xóa?',
+                text: 'Bạn có chắc chắn muốn xóa người dùng này không?',
                 showDenyButton: true,
-                confirmButtonText: 'Evet',
-                denyButtonText: 'Hayır',
+                confirmButtonText: 'Có',
+                denyButtonText: 'Không',
                 customClass: {
                     actions: 'my-actions',
                     cancelButton: 'order-1 right-gap',
