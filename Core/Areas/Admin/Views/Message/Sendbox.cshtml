@@ -2,7 +2,7 @@
 @model List<Message>
 
 @{
-    ViewData["Title"] = "Sendbox";
+    ViewData["Title"] = "Gửi";
     Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
 }
 
@@ -12,24 +12,24 @@
             <div class="mail-box-header">
                 <form method="get" action="index.html" class="float-right mail-search">
                     <div class="input-group">
-                        <input type="text" class="form-control form-control-sm" name="search" placeholder="Mesajlarda ara">
+                        <input type="text" class="form-control form-control-sm" name="search" placeholder="Tìm kiếm trong tin nhắn">
                         <div class="input-group-btn">
                             <button type="submit" class="btn btn-sm btn-primary">
-                                Ara
+                                Tìm
                             </button>
                         </div>
                     </div>
                 </form>
                 <h2>
-                    Giden Kutusu (@Model.Count)
+                    Hộp Gửi (@Model.Count)
                 </h2>
                 <div class="mail-tools tooltip-demo m-t-md">
                     <div class="btn-group float-right">
                         <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i></button>
                         <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i></button>
                     </div>
-                    <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Giden kutusunu yenile"><i class="fa fa-refresh"></i> Yenile</button>
-                    <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Sil"><i class="fa fa-trash-o"></i> </button>
+                    <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Làm mới hộp gửi"><i class="fa fa-refresh"></i> Làm mới</button>
+                    <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Xóa"><i class="fa fa-trash-o"></i> </button>
                 </div>
             </div>
             <div class="mail-box table-responsive">
@@ -37,11 +37,11 @@
                     <thead>
                         <tr>
                             <td class="text-center"><h4>#</h4></td>
-                            <td><h4>Alıcı</h4></td>
-                            <td><h4>Konu</h4></td>
-                            <td><h4>İçerik</h4></td>
-                            <td class="text-center mail-date"><h4>Atılma Tarihi</h4></td>
-                            <td class="text-center mail-date"><h4>Sil</h4></td>
+                            <td><h4>Người nhận</h4></td>
+                            <td><h4>Chủ đề</h4></td>
+                            <td><h4>Nội dung</h4></td>
+                            <td class="text-center mail-date"><h4>Ngày gửi</h4></td>
+                            <td class="text-center mail-date"><h4>Xóa</h4></td>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,7 +58,7 @@
                                 <td style="vertical-align:middle;" class="text-center mail-date">
                                     <button class="btn btn-danger" style="width:60px; padding: 8px 10px; font-size: 14px; text-align: center;"
                                             onclick="confirmDelete('@item.MessageID')">
-                                        Sil
+                                        Xóa
                                     </button>
                                 </td>
                             </tr>
@@ -72,11 +72,11 @@
 <script>
     function confirmDelete(messageId) {
         Swal.fire({
-            title: 'Sil?',
-            text: 'Mesajı silmek istediğinize emin misiniz?',
+            title: 'Xóa?',
+            text: 'Bạn có chắc chắn muốn xóa tin nhắn này không?',
             showDenyButton: true,
-            confirmButtonText: 'Evet',
-            denyButtonText: 'Hayır',
+            confirmButtonText: 'Có',
+            denyButtonText: 'Không',
             customClass: {
                 actions: 'my-actions',
                 cancelButton: 'order-1 right-gap',

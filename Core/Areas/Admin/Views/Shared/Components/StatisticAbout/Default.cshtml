@@ -1,4 +1,4 @@
-﻿@model LargeWidgetViewModel 
+﻿@model LargeWidgetViewModel
 
 <div class="row">
     <div class="col-lg-4">
@@ -7,7 +7,7 @@
                 <h2 class="font-bold no-margins">
                     @ViewBag.adminName
                 </h2>
-                <small>Yönetici</small>
+                <small>Quản Trị Viên</small>
             </div>
             <img src="@ViewBag.adminImage" class="rounded-circle circle-border m-b-md" alt="profile">
         </div>
@@ -22,23 +22,22 @@
                 <i class="fa fa-address-card fa-4x"></i>
                 <h1 class="m-xs">@Model.RoleCount</h1>
                 <h3 class="font-bold no-margins">
-                    Rol
+                    Vai Trò
                 </h3>
             </div>
         </div>
-        <div class="widget  p-lg text-center">
+        <div class="widget p-lg text-center">
             <div class="m-b-md">
                 <i class="fa fa-info-circle fa-4x"></i>
                 <h1 class="m-xs">@Model.Date.ToShortDateString()</h1>
                 <h3 class="font-bold no-margins">
-                    Tarih
+                    Ngày
                 </h3>
             </div>
         </div>
     </div>
     <div class="col-lg-4">
         <div class="widget lazur-bg p-xl">
-
             <h2>
                 @ViewBag.adminName
             </h2>
@@ -50,12 +49,12 @@
                 </li>
                 <li>
                     <span class="fa fa-home m-r-xs"></span>
-                    <label>Adres:</label>
-                   Yalova, Çınarcık
+                    <label>Địa Chỉ:</label>
+                    Yalova, Çınarcık
                 </li>
                 <li>
                     <span class="fa fa-phone m-r-xs"></span>
-                    <label>İletişim:</label>
+                    <label>Liên Hệ:</label>
                     (+90) XXX XXX 71 70
                 </li>
             </ul>
@@ -65,7 +64,7 @@
                 <i class="fa fa-bell fa-4x"></i>
                 <h1 class="m-xs">@Model.NotificationCount</h1>
                 <h3 class="font-bold no-margins">
-                    Bildirim
+                    Thông Báo
                 </h3>
             </div>
         </div>
@@ -76,7 +75,7 @@
                 <i class="fa fa-trophy fa-4x"></i>
                 <h1 class="m-xs">@Model.PassiveBlogCount</h1>
                 <h3 class="font-bold no-margins">
-                    Pasif Blog
+                    Blog Không Hoạt Động
                 </h3>
             </div>
         </div>
@@ -85,7 +84,7 @@
                 <i class="fa fa-warning fa-4x"></i>
                 <h1 class="m-xs">@Model.PassiveCategoryCount</h1>
                 <h3 class="font-bold no-margins">
-                    Pasif Kategori
+                    Danh Mục Không Hoạt Động
                 </h3>
             </div>
         </div>
