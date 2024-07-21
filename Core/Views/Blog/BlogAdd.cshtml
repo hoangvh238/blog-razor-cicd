@@ -1,29 +1,29 @@
-﻿@model Core.Models.BlogAddViewModel
+﻿﻿@model Core.Models.BlogAddViewModel
 
 @{
 	ViewData["Title"] = "BlogAdd";
 	Layout = "~/Views/Shared/WriterLayout.cshtml";
 }
 
-<h1>Blog Oluştur</h1>
+<h1>Tạo Blog</h1>
 <br />
 
 <form id="blogForm" method="post" enctype="multipart/form-data">
-	<h4>Başlık</h4>
+	<h4>Tiêu đề</h4>
 	@Html.TextBoxFor(x => x.BlogTitle, new { @class = "form-control" })
 	@Html.ValidationMessageFor(x => x.BlogTitle, "", new { @class = "text-danger" })
 	<br />
 	<br />
-	<h4>Görsel</h4>
+	<h4>Hình ảnh</h4>
 	<input type="file" id="BlogImage" name="BlogImage" class="form-control" />
 	@Html.ValidationMessageFor(x => x.BlogImage, "", new { @class = "text-danger" })
 	<br />
 	<br />
-	<h4>Kategori</h4>
+	<h4>Thể loại</h4>
 	@Html.DropDownListFor(x => x.CategoryID, (List<SelectListItem>)ViewBag.categories, new { @class = "form-control" })
 	<br />
 	<br />
-	<h4>İçerik</h4>
+	<h4>Nội dung</h4>
 	@Html.TextAreaFor(x => x.BlogContent, 10, 3, new { @class = "form-control" })
 	@Html.ValidationMessageFor(x => x.BlogContent, "", new { @class = "text-danger" })
 	<br />
@@ -60,6 +60,5 @@
  });
 
 	</script>
-	<div class="d-flex justify-content-center"><button type="submit" class="btn btn-inverse-success" style="width: 220px">Oluştur</button></div>
+	<div class="d-flex justify-content-center"><button type="submit" class="btn btn-inverse-success" style="width: 220px">Tạo bài</button></div>
 </form>
-

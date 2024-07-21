@@ -80,11 +80,11 @@ namespace CoreDemo.Controllers
 
             if (model.BlogImage == null)
             {
-                ModelState.AddModelError("BlogImage", "Lütfen bir profil resmi yükleyiniz.");
+                ModelState.AddModelError("BlogImage", "Vui lòng tải lên một hình ảnh hồ sơ.");
             }
             else if (!isJpg && !isJpeg && !isPng)
             {
-                ModelState.AddModelError("BlogImage", "Lütfen geçerli bir profil resmi yükleyiniz.");
+                ModelState.AddModelError("BlogImage", "Vui lòng tải lên một hình ảnh hồ sơ hợp lệ.");
             }
 
             var user = await _userManager.FindByNameAsync(User.Identity.Name);

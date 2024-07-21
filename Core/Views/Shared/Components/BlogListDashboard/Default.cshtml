@@ -5,15 +5,15 @@
     <div class="col-12 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h3>Son 10 Blog</h3>
+                <h3>10 blog cuối cùng</h3>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
-                                <td><h4>Görsel</h4></td>
-                                <th><h4>Başlık</h4></th>
-                                <th><h4>Kategori</h4></th>
-                                <th> <h4>Tarih</h4> </th>
+                                <td><h4>Hình ảnh</h4></td>
+                                <th><h4>Tiêu đề</h4></th>
+                                <th><h4>Thể loại</h4></th>
+                                <th> <h4>Lịch sử</h4> </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,7 +30,7 @@
                                         <h5><label class="badge badge-gradient-primary">@item.Category.CategoryName</label></h5>
                                     </td>
                                     <td> @(((DateTime)item.BlogCreatedAt).ToString("dd-MMM-yyyy")) </td>
-                                    <td><a href="/Blog/BlogReadAll/@item.BlogID" class="btn btn-outline-secondary" style="padding: 8px 10px; font-size: 14px; text-align: center;">Detaylar</a></td>
+                                    <td><a href="/Blog/BlogReadAll/@item.BlogID" class="btn btn-outline-secondary" style="padding: 8px 10px; font-size: 14px; text-align: center;">Chi tiết</a></td>
                                 </tr>
                             }
                         </tbody>

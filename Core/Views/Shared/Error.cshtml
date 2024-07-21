@@ -4,8 +4,8 @@
 }
 
 <div style="padding:20px">
-    <h1 class="text-danger">Hata.</h1>
-    <h2 class="text-danger">İsteğiniz işlenirken bir hata meydana geldi.</h2>
+    <h1 class="text-danger">Error</h1>
+    <h2 class="text-danger">Đã xảy ra lỗi trong khi xử lý yêu cầu của bạn.</h2>
 
     @if (Model.ShowRequestId)
     {
@@ -14,13 +14,13 @@
         </p>
     }
 
-    <h3>Geliştirme Modu</h3>
+    <h3>Chế độ phát triển</h3>
     <p>
-        Şu moda dönmek <strong>Geliştirme</strong> hatayı daha detaylı görüntüleme olanağı sağlar.
+        Şu moda dönmek <strong>Geliştirme</strong> Nó cung cấp cơ hội để xem lỗi chi tiết hơn.
     </p>
     <p>
-        <strong>Geliştirme ortamı, yayımlanmış uygulamalar için kapalı olmalıdır.</strong>
-        <strong>Geliştirme</strong> ortamı şuradan ayarlanabilir <strong>ASPNETCORE_ENVIRONMENT</strong> ortam adını şuna ayarlayın <strong>Geliştirme</strong>
-        ve yeniden başlatınız.
+        <strong>Môi trường phát triển phải được đóng đối với các ứng dụng được xuất bản.</strong>
+        <strong>Phát triển</strong> môi trường có thể được thiết lập từ <strong>ASPNETCORE_ENVIRONMENT</strong> đặt tên môi trường thành <strong>Phát triển</strong>
+        và khởi động lại.
     </p>
 </div>

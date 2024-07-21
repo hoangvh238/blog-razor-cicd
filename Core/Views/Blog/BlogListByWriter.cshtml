@@ -6,16 +6,16 @@
     Layout = "~/Views/Shared/WriterLayout.cshtml";
 }
 
-<h1>Bloglarınız</h1>
+<h1>Blog của bạn</h1>
 <div class="table-responsive">
     <table class="table">
         <thead>
             <tr>
                 <th><h5>ID</h5></th>
-                <th><h5>Blog Başlığı</h5></th>
-                <th><h5>Oluşturma Tarihi</h5></th>
-                <th><h5>Kategori</h5></th>
-                <th><h5>Durum</h5></th>
+                <th><h5>Blog Title</h5></th>
+                <th><h5>Creation Date</h5></th>
+                <th><h5>Category</h5></th>
+                <th><h5>Situation</h5></th>
                 <th><h5></h5></th>
                 <th><h5></h5></th>
             </tr>
@@ -32,11 +32,11 @@
                         @{
                             if (item.BlogStatus)
                             {
-                                <span class="badge badge-success">Aktif</span>
+                                <span class="badge badge-success">Active</span>
                             }
                             else
                             {
-                                <span class="badge badge-dark">Pasif</span>
+                                <span class="badge badge-dark">Passive</span>
                             }
                         }
                     </td>
@@ -45,7 +45,7 @@
                                 onclick="confirmDelete('@item.BlogID')">Sil
                         </button>
                     </td>
-                    <td><a href="/Blog/EditBlog/@item.BlogID" class="btn btn-warning" style="padding: 8px 10px; font-size: 14px; text-align: center;">Düzenle</a></td>
+                    <td><a href="/Blog/EditBlog/@item.BlogID" class="btn btn-warning" style="padding: 8px 10px; font-size: 14px; text-align: center;">Edit</a></td>
                 </tr>
             }
         </tbody>
@@ -54,7 +54,7 @@
 <br />
 <div
 class="d-flex justify-content-center">
-    <a href="/Blog/BlogAdd/" class="btn btn-inverse-primary">Yeni Blog Oluştur</a>
+    <a href="/Blog/BlogAdd/" class="btn btn-inverse-primary">Tạo Blog Mới</a>
 </div>
 <script>
     function confirmDelete(blogId) {

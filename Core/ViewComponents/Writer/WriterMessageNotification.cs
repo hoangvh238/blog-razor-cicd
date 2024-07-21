@@ -58,57 +58,57 @@ namespace Core.ViewComponents.Writer
             {
                 if (relativeDate.Contains("seconds"))
                 {
-                    relativeDate = relativeDate.Replace("seconds", "saniye önce");
+                    relativeDate = relativeDate.Replace("seconds", "Cách đây vài giây");
                 }
-                relativeDate = relativeDate.Replace("second", "saniye önce");
+                relativeDate = relativeDate.Replace("second", "Cách đây vài giây");
             }
             else if (relativeDate.Contains("minute"))
             {
                 if (relativeDate.Contains("minutes"))
                 {
-                    relativeDate = relativeDate.Replace("minutes", "dakika önce");
+                    relativeDate = relativeDate.Replace("minutes", "một phút trước đây");
                 }
-                relativeDate = relativeDate.Replace("minute", "dakika önce");
+                relativeDate = relativeDate.Replace("minute", "một phút trước đây");
             }
             else if (relativeDate.Contains("hour"))
             {
                 if (relativeDate.Contains("hours"))
                 {
-                    relativeDate = relativeDate.Replace("hours", "saat önce");
+                    relativeDate = relativeDate.Replace("hours", "một giờ trước");
                 }
-                relativeDate = relativeDate.Replace("hour", "saat önce");
+                relativeDate = relativeDate.Replace("hour", "một giờ trước");
             }
             else if (relativeDate.Contains("day"))
             {
                 if (relativeDate.Contains("days"))
                 {
-                    relativeDate = relativeDate.Replace("days", "gün önce");
+                    relativeDate = relativeDate.Replace("days", "một ngày trước");
                 }
-                relativeDate = relativeDate.Replace("day", "gün önce");
+                relativeDate = relativeDate.Replace("day", "một ngày trước");
             }
             else if (relativeDate.Contains("week"))
             {
                 if (relativeDate.Contains("weeks"))
                 {
-                    relativeDate = relativeDate.Replace("weeks", "hafta önce");
+                    relativeDate = relativeDate.Replace("weeks", "một tuần trước");
                 }
-                relativeDate = relativeDate.Replace("week", "hafta önce");
+                relativeDate = relativeDate.Replace("week", "một tuần trước");
             }
             else if (relativeDate.Contains("month"))
             {
                 if (relativeDate.Contains("months"))
                 {
-                    relativeDate = relativeDate.Replace("months", "ay önce");
+                    relativeDate = relativeDate.Replace("months", "một tháng trước");
                 }
-                relativeDate = relativeDate.Replace("month", "ay önce");
+                relativeDate = relativeDate.Replace("month", "một tháng trước");
             }
             else if (relativeDate.Contains("year"))
             {
                 if (relativeDate.Contains("years"))
                 {
-                    relativeDate = relativeDate.Replace("years", "yıl önce");
+                    relativeDate = relativeDate.Replace("years", "một năm trước");
                 }
-                relativeDate = relativeDate.Replace("year", "yıl önce");
+                relativeDate = relativeDate.Replace("year", "một năm trước");
             }
 
             return relativeDate;

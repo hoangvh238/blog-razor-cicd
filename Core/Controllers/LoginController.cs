@@ -45,19 +45,19 @@ namespace CoreDemo.Controllers
 
                     if (result.IsLockedOut)
                     {
-                        ModelState.AddModelError("UserName", "Kullanıcı aktif değil");
+                        ModelState.AddModelError("UserName", "Người dùng không tồn tại");
                         return View();
                     }
                     else if (result.RequiresTwoFactor)
                     {
-                        ModelState.AddModelError("UserName", "İki faktörlü doğrulama aktif değil");
+                        ModelState.AddModelError("UserName", "Xác thực hai yếu tố không hoạt động");
                         return View();
                     }
                 }
 
                 if (!result.Succeeded)
                 {
-                    ModelState.AddModelError("UserName", "Kullanıcı adı veya şifre hatalı");
+                    ModelState.AddModelError("UserName", "Tên người dùng hoặc mật khẩu sai");
                     return View();
                 }
 

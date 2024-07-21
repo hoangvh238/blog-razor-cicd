@@ -110,7 +110,7 @@ namespace Core.Controllers
                 {
                     var result = new SearchResultViewModel
                     {
-                        Payload = "Şu terim için sonuçlar: " + model.SearchTerm,
+                        Payload = "Kết quả: " + model.SearchTerm,
                         ControllerName = "/" + controller + "/",
                         ActionName = action + "/",
                     };
@@ -128,7 +128,7 @@ namespace Core.Controllers
                     {
                         var result = new SearchResultViewModel
                         {
-                            Payload = "Şu terim için sonuçlar: " + model.SearchTerm,
+                            Payload = "Kết quả: " + model.SearchTerm,
                             ControllerName = "/Admin/" + controller + "/",
                             ActionName = action + "/",
                         };
@@ -144,7 +144,7 @@ namespace Core.Controllers
                     {
                         var result = new SearchResultViewModel
                         {
-                            Payload = "Şu terim için sonuçlar: " + model.SearchTerm,
+                            Payload = "Kết quả: " + model.SearchTerm,
                             ControllerName = "/" + controller + "/",
                             ActionName = action + "/",
                         };
@@ -163,7 +163,7 @@ namespace Core.Controllers
                     {
                         var result = new SearchResultViewModel
                         {
-                            Payload = "Şu terim için sonuçlar: " + model.SearchTerm,
+                            Payload = "Kết quả: " + model.SearchTerm,
                             ControllerName = "/" + controller + "/",
                             ActionName = action + "/",
                         };
@@ -219,7 +219,7 @@ namespace Core.Controllers
 
             if (userModel.WriterPassword != confirmPassword)
             {
-                ModelState.AddModelError("ConfirmPassword", "Şifreler eşleşmiyor.");
+                ModelState.AddModelError("ConfirmPassword", "Mất khẩu không hợp lệ.");
             }
 
             writer.WriterNameSurname = userModel.WriterNameSurname;

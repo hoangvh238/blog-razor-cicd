@@ -5,15 +5,15 @@
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h3>Kategoriler</h3>
+                <h3>Thể loại</h3>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
                                 <th><h4>ID</h4></th>
-                                <th><h4>Kategori Adı</h4></th>
-                                <th><h4>Durumu</h4></th>
-                                <th><h4>Puanlama</h4></th>
+                                <th><h4>Tên thể loại</h4></th>
+                                <th><h4>Trạng thái</h4></th>
+                                <th><h4>Điểm</h4></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -26,11 +26,11 @@
                                         @{
                                             if (item.CategoryStatus)
                                             {
-                                                <span class="badge badge-success">Aktif</span>
+                                                <span class="badge badge-success">Active</span>
                                             }
                                             else
                                             {
-                                                <span class="badge badge-dark">Pasif</span>
+                                                <span class="badge badge-dark">Passive</span>
                                             }
                                         }
                                     </td>

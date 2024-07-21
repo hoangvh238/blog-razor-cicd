@@ -105,7 +105,7 @@ namespace CoreDemo.Controllers
                 {
                     var result = new SearchResultViewModel
                     {
-                        Payload = "Şu terim için sonuçlar: " + model.SearchTerm,
+                        Payload = "Kết quả: " + model.SearchTerm,
                         ControllerName = "/" + controller + "/",
                         ActionName = action + "/",
                     };
@@ -123,7 +123,7 @@ namespace CoreDemo.Controllers
                     {
                         var result = new SearchResultViewModel
                         {
-                            Payload = "Şu terim için sonuçlar: " + model.SearchTerm,
+                            Payload = "Kết quả: " + model.SearchTerm,
                             ControllerName = "/Admin/" + controller + "/",
                             ActionName = action + "/",
                         };
@@ -139,7 +139,7 @@ namespace CoreDemo.Controllers
                     {
                         var result = new SearchResultViewModel
                         {
-                            Payload = "Şu terim için sonuçlar: " + model.SearchTerm,
+                            Payload = "Kết quả: " + model.SearchTerm,
                             ControllerName = "/" + controller + "/",
                             ActionName = action + "/",
                         };
@@ -158,7 +158,7 @@ namespace CoreDemo.Controllers
                     {
                         var result = new SearchResultViewModel
                         {
-                            Payload = "Şu terim için sonuçlar: " + model.SearchTerm,
+                            Payload = "Kết quả: " + model.SearchTerm,
                             ControllerName = "/" + controller + "/",
                             ActionName = action + "/",
                         };

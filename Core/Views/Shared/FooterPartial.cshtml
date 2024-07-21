@@ -2,28 +2,28 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-4 footer-grid-agileits-w3ls text-left">
-				<h3>Hakkımızda</h3>
-				<p>Blog, teknik bilgi gerektirmeden, kendi istedikleri şeyleri, kendi istedikleri şekilde yazan insanların oluşturabildikleri, günlüğe benzeyen web siteleridir. Genellikle güncelden eskiye doğru sıralanmış yazı ve yorumların yayınlandığı, web tabanlı bir yayını belirtir. Çoğunlukla her gönderinin sonunda yazarın adı ve gönderi zamanı belirtilir. Yayıncının seçimine göre okuyucular yazılara yorum yapılabilir... </p>
+				<h3>About</h3>
+				<p>Blog là những trang web giống như nhật ký được tạo ra bởi những người viết những gì họ muốn, theo cách họ muốn mà không yêu cầu kiến ​​thức kỹ thuật. Nó thường đề cập đến một ấn phẩm dựa trên web trong đó các bài viết và bình luận được xuất bản theo thứ tự từ hiện tại đến cũ nhất. Thường tên tác giả và thời gian đăng bài được ghi rõ ở cuối mỗi bài viết. Bạn đọc có thể bình luận bài viết theo sự lựa chọn của nhà xuất bản... </p>
 				<div class="read">
-					<a href="/About/Index/" class="btn btn-primary read-m">Devamını Oku</a>
+					<a href="/About/Index/" class="btn btn-primary read-m">Đọc thêm</a>
 				</div>
 			</div>
 			<div class="col-lg-4 footer-grid-agileits-w3ls text-left">
 				<div class="tech-btm">
-					<h3>Son Gönderiler</h3>
+					<h3>Bài viết mới nhất</h3>
 					@await Component.InvokeAsync("LastBlogs")
 				</div>
 			</div>
 			<div class="col-lg-4 footer-grid-agileits-w3ls text-left">
 					<div class="tech-btm">
-						<h3>Mail Bültenine Abone Ol</h3>
+					<h3>Đăng ký nhận bản tin email</h3>
 						<img src="~/coredemotheme/images/banner1.jpg" class="img-fluid" alt="">
 					</div>
 				<div class="tech-btm">
-					<p>Bloglar size mail ile yollanacaktır. </p>
+					<p>Blog sẽ được gửi cho bạn qua e-mail. </p>
 					<form id="newsfooter" method="post">
 						<input type="email" placeholder="Email" required="" name="Mail">
-						<input type="submit" value="ABONE OL">
+						<input type="submit" value="ĐẶT MUA">
 					</form>
 					<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 					<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -41,16 +41,16 @@
 									$("input[name='Mail']").val('');
 
 									Swal.fire({
-										title: 'Başarılı',
+										title: 'Thành công',
 										icon: 'success',
-										confirmButtonText: 'Tamam'
+										confirmButtonText: 'OK'
 									});
 								},
 								error: function (error) {
 									Swal.fire({
-										title: 'Hata',
+										title: 'Errpr',
 										icon: 'error',
-										confirmButtonText: 'Tamam'
+										confirmButtonText: 'OK'
 									});
 								}
 							});
@@ -86,7 +86,7 @@
 			</div>
 			<div class="w3layouts-agile-copyrightbottom">
 				<p>
-					© @DateTime.Now.Year PureBlog Web Sayfası. Tüm Hakları Saklıdır.
+					© @DateTime.Now.Year PureBlog Trang Web  Đã đăng ký Bản quyền.
 				</p>
 			</div>
 		</div>
