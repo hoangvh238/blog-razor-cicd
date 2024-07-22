@@ -30,7 +30,8 @@ namespace Core.Repository
 				{
 					From = new MailAddress(getEmailSetting.From),
 					Subject = subject,
-					Body = message
+					Body = message,
+					IsBodyHtml = true 
 
 				};
 				mail.To.Add(email);
