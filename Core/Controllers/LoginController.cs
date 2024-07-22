@@ -12,6 +12,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Core.ViewModel;
 using Core.Repository;
+using BusinessLayer.Ultils;
 
 namespace CoreDemo.Controllers
 {
@@ -97,17 +98,17 @@ namespace CoreDemo.Controllers
         [HttpPost]
 		public async Task<IActionResult> ForgotPass(ForgotPass forgot)
 		{
-            if(!ModelState.IsValid)
-            {
-                return View(forgot);
-            }
+            //if(!ModelState.IsValid)
+            //{
+            //    return View(forgot);
+            //}
 
             var user = await _userManager.FindByEmailAsync(forgot.Email);
             if(user != null)
             {
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.Action("ResetPass", "Login", new {userId = user.Id, Token=code}, protocol:Request.Scheme);
-                bool isSendEmail = await emailSender.EmailSendAsync(forgot.Email, "Đổi mật khẩu", "Nhấn vào đây để đổi mật khẩu <a style='background-color:#04aa6d; border:none;color:white;font-size:16px;' href=\""+callbackUrl+"\">Click Here</a>");
+                bool isSendEmail = await emailSender.EmailSendAsync(forgot.Email, "Đổi mật khẩu", EmailTemplate.GenerateEmailTemplate(user.Email,callbackUrl,"Click here"));
                 if (isSendEmail)
                 {
                     Response response = new Response();
@@ -124,36 +125,38 @@ namespace CoreDemo.Controllers
             return View(response);
         }
 
-        public IActionResult ResetPass(string userId,string Token)
-        {
-            var model = new ForgotPass()
-            {
-                Token = Token,
-                UserId = userId,
-            };
-            return View();
-        }
+		[HttpGet("resetpass")]
+		public IActionResult ResetPass(string userId, string Token)
+		{
+			var model = new ForgotPass()
+			{
+				Token = Token,
+				UserId = userId,
+			};
+			return View(model);
+		}
 
-        public async Task< IActionResult> Resetpass(ForgotPass forgot)
-        {
-            Response re = new Response();
-            ModelState.Remove("Email");
-            if(!ModelState.IsValid)
-            {
-                return View(forgot);
-            }
-            var user = await _userManager.FindByIdAsync(forgot.UserId);
-            if(user == null)
-            {
-                return View(forgot);
-            }
-            var result = await _userManager.ResetPasswordAsync(user,forgot.Token,forgot.Password);
-            if (result.Succeeded)
-            {
-                re.Message = "Mật khẩu của bạn đã được đổi";
-                return RedirectToAction("ConfirmPass", re);
-            }
-            return View(forgot);
-        }
+		[HttpPost("resetpass")]
+		public async Task<IActionResult> ResetPass(ForgotPass forgot)
+		{
+			Response re = new Response();
+			ModelState.Remove("Email");
+			if (!ModelState.IsValid)
+			{
+				return View(forgot);
+			}
+			var user = await _userManager.FindByIdAsync(forgot.UserId);
+			if (user == null)
+			{
+				return View(forgot);
+			}
+			var result = await _userManager.ResetPasswordAsync(user, forgot.Token, forgot.Password);
+			if (result.Succeeded)
+			{
+				re.Message = "Mật khẩu của bạn đã được đổi";
+				return RedirectToAction("ConfirmPass", re);
+			}
+			return View(forgot);
+		}
 	}
 }
