@@ -4,6 +4,9 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
+# Set the environment to Production
+ENV ASPNETCORE_ENVIRONMENT=Production
+
 # Use the .NET 5 SDK for building the application
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
