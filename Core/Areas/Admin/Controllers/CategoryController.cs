@@ -14,7 +14,7 @@ namespace Core.Areas.Admin.Controllers
     public class CategoryController : Controller
     {
         private readonly CategoryManager _categoryManager = new(new EfCategoryRepository());
-
+//
         public IActionResult Index(int page = 1)
         {
             var categories = _categoryManager.GetEntities().ToPagedList(page, 3);
