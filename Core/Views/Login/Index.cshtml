@@ -24,6 +24,9 @@
 						<input type="checkbox" class="form-check-input" asp-for="@Model.IsPersistent" id="exampleCheck1">
 						<label class="form-check-label" for="exampleCheck1">Remember</label>
 					</div>
+					<div class="form-check mb-2">
+						<a asp-action="ForgotPass" asp-controller="Login" class="float-end btn btn-outline-primary">Quên mật khẩu </a>
+					</div>
 					<button type="submit" class="btn btn-primary submit mb-4">Đăng nhập</button>
 					<p><a href="/Register/Index/"> Bạn chưa có tài khoản?</a></p>
 				</form>

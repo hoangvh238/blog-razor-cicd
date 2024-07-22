@@ -2,6 +2,7 @@ using BusinessLayer.Middlewares;
 using BusinessLayer.ValidationRules;
 using Core.ExtensionService.BlogService;
 using Core.Hubs;
+using Core.Repository;
 using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
 using FluentValidation;
@@ -40,13 +41,13 @@ namespace CoreDemo
 				x.Password.RequireNonAlphanumeric = false;
 				x.Password.RequiredLength = 8;
 			})
-				.AddEntityFrameworkStores<Context>();
+				.AddEntityFrameworkStores<Context>().AddDefaultTokenProviders();
 
 			services.Configure<SecurityStampValidatorOptions>(options =>
 			{
 				options.ValidationInterval = TimeSpan.Zero;
 			});
-
+			services.AddTransient<IEmailSender, EmailSender>();
 			services.ConfigureApplicationCookie(options =>
 			{
 				options.Cookie.HttpOnly = true;
@@ -57,6 +58,7 @@ namespace CoreDemo
 				options.ExpireTimeSpan = System.TimeSpan.FromDays(7);
 			});
 
+			services.Configure<DataProtectionTokenProviderOptions>(opts=>opts.TokenLifespan = TimeSpan.FromHours(7));
 			services.AddControllersWithViews();
 			services.AddMvc(
 				config =>

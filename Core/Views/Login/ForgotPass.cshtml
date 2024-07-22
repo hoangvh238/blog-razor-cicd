@@ -1,0 +1,28 @@
+﻿@model Core.ViewModel.ForgotPass
+@{
+    ViewData["Title"] = "ForgotPass";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+
+}
+
+<section class="main-content-w3layouts-agileits">
+	<div class="container">
+		<h3 class="tittle">Quên mật khẩu</h3>
+		<div class="inner-sec">
+			<div class="login p-5 bg-light mx-auto mw-100">
+				<form method="post" asp-action="ForgotPass">
+					<div class="form-group">
+						<label for="exampleInputEmail1 mb-2" style="font-size: 20px;">Email</label>
+						<input  class="form-control" asp-for=Email id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your email...">
+						<span asp-validation-for="Email" class="text-danger"></span>
+					</div>
+					
+					
+					<button type="submit" class="btn btn-primary submit mb-4">Gửi</button>
+					<p><a href="/Register/Index/"> Bạn chưa có tài khoản?</a></p>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+
