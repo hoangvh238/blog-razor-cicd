@@ -22,7 +22,7 @@ COPY EntityLayer/EntityLayer.csproj EntityLayer/
 
 RUN dotnet restore
 
-# Copy the remaining source code and build the application
+# Copy the remaining source code and build the application 
 COPY . .
 
 WORKDIR /src/Core
@@ -32,7 +32,7 @@ RUN dotnet build -c Release -o /app/build
 FROM build AS publish
 RUN dotnet publish -c Release -o /app/publish
 
-# Create the final image
+# Create the final Image
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
