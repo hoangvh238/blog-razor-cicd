@@ -39,9 +39,6 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(UserLoginViewModel userLoginViewModel)
         {
-		int a = 1;
-  		int b = 2; 
-    		string a = "a";
             if (ModelState.IsValid)
             {
                 var userName = await _signInManager.UserManager.FindByNameAsync(userLoginViewModel.UserName);
