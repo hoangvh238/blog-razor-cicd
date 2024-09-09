@@ -9,11 +9,14 @@ builder.Services.AddControllers(
     options =>
     {
         options.InputFormatters.Add(new XmlSerializerInputFormatter(options));
+        
         options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
     });
 
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
+
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
