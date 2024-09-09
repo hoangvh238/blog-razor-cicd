@@ -20,6 +20,7 @@ namespace Core.ViewComponents.Login
         public IViewComponentResult Invoke()
         {
             var value = SigningInfo().Result;
+            int a = 1;
 
             ViewBag.Writer = value;
 
