@@ -13,6 +13,7 @@ namespace CoreDemo.Controllers
     {
         private readonly CommentManager _commentManager = new(new EfCommentRepository());
         private readonly WriterManager _writerManager = new(new EfWriterRepository());
+
         private readonly UserManager<User> _userManager;
 
         public CommentController(UserManager<User> userManager)
@@ -32,6 +33,7 @@ namespace CoreDemo.Controllers
         public PartialViewResult PartialAddComment(Comment comment)
         {
             string image;
+            int aaa = 1 ;
             var writer = GetWriterID().Result;
 
             if (writer != null)
