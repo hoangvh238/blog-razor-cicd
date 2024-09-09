@@ -11,6 +11,7 @@ namespace WebAPI.Controllers
         [HttpGet("login")]
         public IActionResult Login()
         {
+            int a = 1;
             BuildToken token = new();
             return Created("", token.CreateToken());
         }
