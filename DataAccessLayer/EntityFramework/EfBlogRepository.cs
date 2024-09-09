@@ -20,6 +20,8 @@ namespace DataAccessLayer.EntityFramework
         {
             using var context = new Context();
 
+
+
             return context.Blogs.Include(t => t.Category).Include(a => a.Writer).Where(z => z.Category.CategoryStatus && z.Writer.WriterStatus).Where(x => x.BlogStatus)
                 .OrderByDescending(x => x.BlogCreatedAt)
                 .Take(3)
