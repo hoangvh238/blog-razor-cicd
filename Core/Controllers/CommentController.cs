@@ -33,7 +33,6 @@ namespace CoreDemo.Controllers
         public PartialViewResult PartialAddComment(Comment comment)
         {
             string image;
-            int aaa = 1 ;
             var writer = GetWriterID().Result;
 
             if (writer != null)
