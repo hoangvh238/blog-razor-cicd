@@ -7,6 +7,7 @@ namespace Core.Areas.Admin.Models
         [JsonProperty("categorycount")]
         public int CategoryCount { get; set; }
 
+        
         [JsonProperty("categoryname")]
         public string CategoryName { get; set; }
     }
