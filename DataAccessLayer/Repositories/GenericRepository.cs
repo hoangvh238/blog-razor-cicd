@@ -13,6 +13,7 @@ namespace DataAccessLayer.Repositories
         {
             using var context = new Context();
             context.Remove(item);
+            
             context.SaveChanges();
         }
 
