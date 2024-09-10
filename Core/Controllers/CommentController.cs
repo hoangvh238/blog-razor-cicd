@@ -11,7 +11,6 @@ namespace CoreDemo.Controllers
 {
     public class CommentController : Controller
     {
-    
         private readonly CommentManager _commentManager = new(new EfCommentRepository());
         private readonly WriterManager _writerManager = new(new EfWriterRepository());
 
