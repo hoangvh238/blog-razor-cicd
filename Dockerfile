@@ -4,6 +4,7 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
+
 # Set the environment to Production
 ENV ASPNETCORE_ENVIRONMENT=Production
 
