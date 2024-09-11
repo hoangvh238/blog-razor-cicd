@@ -1,48 +1,122 @@
 pipeline {
     agent any
 
-    triggers {
-        pollSCM('H/5 * * * *') 
+    environment {
+        SCANNER_HOME = tool 'SonarScan-dotnet'
+        SONAR_HOST_URL = 'http://54.251.182.253:9000/'
+        SONAR_PROJECT_KEY = 'CampScholar-Scan'
+    }
+    
+    tools {
+        dockerTool 'docker'
     }
 
     stages {
-        stage('Checkout') {
+        stage('Check Branch') {
             steps {
-                // Clone repository với thông tin của PR
-                checkout scm
+                script {
+                    def branchName = env.BRANCH_NAME ?: env.CHANGE_BRANCH
+                    if (!branchName?.startsWith('feat/')) {
+                        error "Branch '${branchName}' is not a feature branch. Skipping pipeline execution."
+                    }
+                }
+            }
+        }
+
+        stage('Checkout Pull Request') {
+            when {
+                expression {
+                    return env.CHANGE_ID != null 
+                }
+            }
+            steps {
+                script {
+                    // Checkout the pull request code
+                    checkout([$class: 'GitSCM', 
+                        branches: [[name: env.CHANGE_BRANCH]], 
+                        userRemoteConfigs: [[url: 'https://github.com/hoangvh238/Blog-razor-page']]
+                    ])
+                }
+            }
+        }
+
+        stage('SonarQube Analysis Begin') {
+            when {
+                expression {
+                    return env.CHANGE_ID != null 
+                }
+            }
+            steps {
+                withSonarQubeEnv('Sonar-Server') {
+                    withCredentials([string(credentialsId: 'Sonar-Token', variable: 'SONAR_TOKEN')]) {
+                        sh "${SCANNER_HOME}/SonarScanner.MSBuild.dll begin /k:\"${SONAR_PROJECT_KEY}\" /d:sonar.login=${SONAR_TOKEN} /d:sonar.host.url=\"${SONAR_HOST_URL}\""
+                    }
+                }
             }
         }
 
         stage('Build') {
+            when {
+                expression {
+                    return env.CHANGE_ID != null 
+                }
+            }
             steps {
-                // Thực hiện các bước build
-                sh 'echo Building project...'
+                sh 'dotnet build'
             }
         }
 
-        stage('Test') {
+        stage('SonarQube Analysis End') {
+            when {
+                expression {
+                    return env.CHANGE_ID != null 
+                }
+            }
             steps {
-                // Chạy các bước test
-                sh 'echo Running tests...'
+                withSonarQubeEnv('Sonar-Server') {
+                    withCredentials([string(credentialsId: 'Sonar-Token', variable: 'SONAR_TOKEN')]) {
+                        sh "${SCANNER_HOME}/SonarScanner.MSBuild.dll end /d:sonar.login=${SONAR_TOKEN}"
+                    }
+                }
             }
         }
 
-        stage('Deploy') {
+        stage('Quality Gate') {
+            when {
+                expression {
+                    return env.CHANGE_ID != null // Check if it's a pull request
+                }
+            }
             steps {
-                // Triển khai hoặc các bước tiếp theo
-                sh 'echo Deploying project...'
+                script {
+                    def qualityGate = waitForQualityGate()
+                    if (qualityGate.status == 'OK') {
+                        echo "SonarQube analysis passed, proceeding to Docker build."
+                    } else {
+                        error "SonarQube analysis failed: ${qualityGate.status}"
+                    }
+                }
             }
         }
-    }
 
-    post {
-        success {
-            // Báo cáo thành công sau khi build
-            echo 'Build completed successfully.'
-        }
-        failure {
-            // Báo cáo thất bại
-            echo 'Build failed.'
+        stage('Build and Push Docker Image') {
+            when {
+                expression {
+                    return env.CHANGE_ID != null
+                }
+            }
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-cred') {
+                        sh "docker build -t blog-razor:latest -f Dockerfile ."
+                        
+                        sh "docker tag blog-razor:latest hoangvh2388/blog-razor:latest"
+                        sh "docker push hoangvh2388/blog-razor:latest"
+                        
+                        sh "docker system prune -f"
+                    }
+                }
+            }
         }
     }
 }
