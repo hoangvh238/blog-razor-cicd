@@ -5,6 +5,7 @@ pipeline {
         SCANNER_HOME = tool 'SonarScan-dotnet'
         SONAR_HOST_URL = 'http://54.251.182.253:9000/'
         SONAR_PROJECT_KEY = 'CampScholar-Scan'
+        CD_PIPELINE_NAME = 'CD_Pipeline'    
     }
     
     tools {
@@ -63,6 +64,11 @@ pipeline {
                         sh "docker system prune -f"
                     }
                 }
+            }
+        }
+         stage('Trigger CD Pipeline') {
+            steps {
+                build job: "${CD_PIPELINE_NAME}", wait: false
             }
         }
     }
