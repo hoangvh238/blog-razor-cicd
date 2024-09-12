@@ -1,0 +1,54 @@
+pipeline {
+    agent any
+
+    environment {
+        EC2_USER = 'ubuntu'
+        EC2_HOST = 'ec2-13-250-62-65.ap-southeast-1.compute.amazonaws.com'
+        DOCKER_IMAGE = 'hoangvh2388/blog-razor:latest'
+        CONTAINER_NAME = 'blog-app'
+        SSH_CREDENTIALS_ID = 'EC2-Credentials'
+        DOCKER_CREDENTIALS_ID = 'docker-cred'
+    }
+
+    stages {
+        stage('Deploy Container') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_CREDENTIALS_ID}") {
+                        withCredentials([file(credentialsId: "${SSH_CREDENTIALS_ID}", variable: 'SSH_KEY')]) {
+                            sh """
+                                ssh -i \${SSH_KEY} -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_HOST} <<'EOF'
+                                    # Stop and remove old container if it exists
+                                    if [ \$(sudo docker ps -q -f name=${CONTAINER_NAME}) ]; then
+                                        sudo docker stop ${CONTAINER_NAME}
+                                    fi
+
+                                    if [ \$(sudo docker ps -aq -f name=${CONTAINER_NAME}) ]; then
+                                        sudo docker rm ${CONTAINER_NAME}
+                                    fi
+
+                                    # Pull the latest Docker image
+                                    sudo docker pull ${DOCKER_IMAGE}
+                                    
+                                    # Run the new container
+                                    sudo docker run -d --rm --name ${CONTAINER_NAME} -p 80:80 -p 443:443 ${DOCKER_IMAGE}
+                                    
+                                    # Check flag file
+                                    if [ ! -f ${DB_INIT_FLAG} ]; then
+                                        echo "Initializing database using Code First..."
+                                        # Create first-dbdb
+                                        sudo docker exec ${CONTAINER_NAME} dotnet ef migrations add "Init"
+                                        sudo docker exec ${CONTAINER_NAME} dotnet ef database update
+
+                                        touch ${DB_INIT_FLAG}
+                                    else
+                                        echo "Database already initialized, skipping Code First migration."
+                                    fi
+                            """
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
