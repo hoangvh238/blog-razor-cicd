@@ -12,39 +12,7 @@ pipeline {
     }
 
     stages {
-        stage('Check Branch') {
-            steps {
-                script {
-                    def branchName = env.BRANCH_NAME ?: env.CHANGE_BRANCH
-                    if (!branchName?.startsWith('feat/')) {
-                        error "Branch '${branchName}' is not a feature branch. Skipping pipeline execution."
-                    }
-                }
-            }
-        }
-
-        stage('Checkout Pull Request') {
-            when {
-                expression {
-                    return env.CHANGE_ID != null
-                }
-            }
-            steps {
-                script {
-                    checkout([$class: 'GitSCM', 
-                        branches: [[name: "refs/pull/${env.CHANGE_ID}/head"]], 
-                        userRemoteConfigs: [[url: 'https://github.com/hoangvh238/Blog-razor-page']]
-                    ])
-                }
-            }
-        }
-
         stage('SonarQube Analysis Begin') {
-            when {
-                expression {
-                    return env.CHANGE_ID != null 
-                }
-            }
             steps {
                 withSonarQubeEnv('Sonar-Server') {
                     withCredentials([string(credentialsId: 'Sonar-Token', variable: 'SONAR_TOKEN')]) {
@@ -55,22 +23,12 @@ pipeline {
         }
 
         stage('Build') {
-            when {
-                expression {
-                    return env.CHANGE_ID != null 
-                }
-            }
             steps {
                 sh 'dotnet build'
             }
         }
 
         stage('SonarQube Analysis End') {
-            when {
-                expression {
-                    return env.CHANGE_ID != null 
-                }
-            }
             steps {
                 withSonarQubeEnv('Sonar-Server') {
                     withCredentials([string(credentialsId: 'Sonar-Token', variable: 'SONAR_TOKEN')]) {
@@ -81,11 +39,6 @@ pipeline {
         }
 
         stage('Quality Gate') {
-            when {
-                expression {
-                    return env.CHANGE_ID != null 
-                }
-            }
             steps {
                 script {
                     def qualityGate = waitForQualityGate()
@@ -99,11 +52,6 @@ pipeline {
         }
 
         stage('Build and Push Docker Image') {
-            when {
-                expression {
-                    return env.CHANGE_ID != null
-                }
-            }
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', 'docker-cred') {
