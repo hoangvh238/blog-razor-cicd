@@ -26,14 +26,13 @@ pipeline {
         stage('Checkout Pull Request') {
             when {
                 expression {
-                    return env.CHANGE_ID != null 
+                    return env.CHANGE_ID != null
                 }
             }
             steps {
                 script {
-                    // Checkout the pull request code
                     checkout([$class: 'GitSCM', 
-                        branches: [[name: env.CHANGE_BRANCH]], 
+                        branches: [[name: "refs/pull/${env.CHANGE_ID}/head"]], 
                         userRemoteConfigs: [[url: 'https://github.com/hoangvh238/Blog-razor-page']]
                     ])
                 }
@@ -84,7 +83,7 @@ pipeline {
         stage('Quality Gate') {
             when {
                 expression {
-                    return env.CHANGE_ID != null // Check if it's a pull request
+                    return env.CHANGE_ID != null 
                 }
             }
             steps {
