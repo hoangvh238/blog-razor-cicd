@@ -8,7 +8,7 @@ pipeline {
         CONTAINER_NAME = 'blog-app'
         SSH_CREDENTIALS_ID = 'EC2-Credentials'
         DOCKER_CREDENTIALS_ID = 'docker-cred'
-        DB_INIT_FLAG = '/path/to/db_init_flag'
+        DB_INIT_FLAG = '/home/ubuntu/db_init_flag'
     }
 
     stages {
