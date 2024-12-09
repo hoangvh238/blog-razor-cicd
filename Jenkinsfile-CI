@@ -1,6 +1,5 @@
 pipeline {
     agent any
-
     environment {
         SCANNER_HOME = tool 'SonarScan-dotnet'
         SONAR_HOST_URL = 'http://54.251.182.253:9000/'
